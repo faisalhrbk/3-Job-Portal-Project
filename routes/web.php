@@ -7,5 +7,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
+Route::controller(HomeController::class)->group(function(){
+Route::get('/', 'index')->name('home');
+});
