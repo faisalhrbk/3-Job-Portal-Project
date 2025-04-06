@@ -3,3 +3,4 @@ here i will list things that i have did in this Project
 1, first edited the users migrations file and add some more colums
 2, created Home Controller and index method
 3, created front folder and home.blade file
+4, brought assest folder from d drive to public folder 
