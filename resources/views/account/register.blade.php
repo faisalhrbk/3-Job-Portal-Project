@@ -7,27 +7,31 @@
                 <div class="col-md-5">
                     <div class="card border-0 p-5 shadow">
                         <h1 class="h3">Register</h1>
-                        <form action="" name="registrationFrom" id="registrationForm">
+                        <form action="" name="registrationFrom" id="registrationForm" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="" class="mb-2">Name*</label>
                                 <input type="text" name="name" id="name" class="form-control"
                                     placeholder="Enter Name">
+                           <p class="error-name"></p>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="mb-2">Email*</label>
                                 <input type="text" name="email" id="email" class="form-control"
                                     placeholder="Enter Email">
+                                  <p class="error-email"></p>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="mb-2">Password*</label>
-                                <input type="password" name="password" id="name" class="form-control"
+                                <input type="password" name="password" id="password" class="form-control"
                                     placeholder="Enter Password">
+                               <p class="error-password"></p>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="mb-2">Confirm Password*</label>
-                                <input type="password" name="confirm_password" id="name" class="form-control"
+                                <input type="password" name="confirm_password" id="confirm_password" class="form-control"
                                     id="confirm_password" placeholder="Enter Password">
+                                <p class="error-confirm_password"></p>
                             </div>
                             <button class="btn btn-primary mt-2">Register</button>
                         </form>
@@ -47,12 +51,49 @@
         });
 
         $.ajax({
-            url: '{{ route("account.register.post") }}',
+            url: '{{ route('account.register.post') }}',
             type: 'post',
-            data: $('#registrationForm').serializeArray()
+            data: $('#registrationForm').serializeArray(),
             dataType: 'json',
-            success: function(response){
+            success: function(response) {
+                console.log(response);
+                
+                if (response.status == false) {
+                    let errors = response.errors;
+                       alert('Form submitted'); // check submit ho bhi raha ya nahi
 
+                    if (errors.name) {
+                        $('[name="name"]').addClass('is-invalid').siblings('p').addClass('invalid-feedback')
+                            .html(errors
+                                .name[0])
+                        
+                    } else {
+                        $('[name="name"]').removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html()
+                    }
+                    if (errors.email) {
+                        $('[name="email"]').addClass('is-invalid').siblings('p').addClass('invalid-feedback')
+                            .html(errors
+                                .email)
+                    } else {
+                        $('[name="email"]').removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html()
+                    }
+                    if (errors.password) {
+                        $('[name="password"]').addClass('is-invalid').siblings('p').addClass('invalid-feedback')
+                            .html(errors.password)
+                    } else {
+                        $('[name="password"]').removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html()
+                    }
+                    if (errors.confirm_password) {
+                        $('[name="confirm_password"]').addClass('is-invalid').siblings('p').addClass(
+                            'invalid-feedback').html(errors.confirm_password)
+                    } else {
+                        $('[name="confirm_password"]').removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html()
+                    }
+                }
 
             }
         });

@@ -26,13 +26,14 @@ class AccountController extends Controller
 
         ]);
 
-        if($validator->passes()){
-
-        }else{
-          return   response()->json([
-'status' => false,
-'errors' => $validator->errors(),
-          ]);
+        if ($validator->passes()) {
+         
+return redirect()->back();
+        } else {
+            return   response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ]);
         }
     }
     function login() {}
