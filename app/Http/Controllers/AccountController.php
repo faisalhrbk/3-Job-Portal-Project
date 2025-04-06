@@ -24,21 +24,26 @@ class AccountController extends Controller
             'password' => 'required|min:3',
             'confirm_password' => 'required|same:password'
         ]);
-
-        // if ($validator->passes()) {
-        if ($validator->fails()) {
+        if ($validator->passes()) {
+            $user =  $request->only(['name', 'email', 'password']);
+            User::create($user);
+            Session()->flash('success', 'you have registered successfully');
+            return response()->json([
+                'status' => true,
+                'message' => 'Registration successful!'
+            ]);
+        }
+        // if ($validator->fails())
+        else {
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors(),
             ]);
         }
-      
-     
-        return response()->json([
-            'status' => true,
-            'message' => 'Registration successful!'
-        ]);
     }
 
-    function login() {}
+    function login()
+    {
+        return view('account.login');
+    }
 }
