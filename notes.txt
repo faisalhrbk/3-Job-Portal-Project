@@ -4,3 +4,6 @@ here i will list things that i have did in this Project
 2, created Home Controller and index method
 3, created front folder and home.blade file
 4, brought assest folder from d drive to public folder 
+
+REMOVED FRONT FOLDER 
+5, created layouts and app.blade file
