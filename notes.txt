@@ -7,3 +7,10 @@ here i will list things that i have did in this Project
 
 REMOVED FRONT FOLDER 
 5, created layouts and app.blade file
+
+6,created registration file controller and folder
+7, using Ajax for form submission its my first time doign this
+
+8, finally understand what is ajax fetchapi axios inertia 
+
+9, fetch api is better than ajax;

@@ -8,6 +8,7 @@
                     <div class="card border-0 p-5 shadow">
                         <h1 class="h3">Register</h1>
                         <form action="" name="registrationFrom" id="registrationForm">
+                            @csrf
                             <div class="mb-3">
                                 <label for="" class="mb-2">Name*</label>
                                 <input type="text" name="name" id="name" class="form-control"
@@ -43,6 +44,17 @@
     <script>
         $("#registrationForm").submit(function(event) {
             event.preventDefault();
+        });
+
+        $.ajax({
+            url: '{{ route("account.register.post") }}',
+            type: 'post',
+            data: $('#registrationForm').serializeArray()
+            dataType: 'json',
+            success: function(response){
+
+
+            }
         });
     </script>
 @endsection

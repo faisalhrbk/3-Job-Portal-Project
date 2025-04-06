@@ -9,6 +9,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('contact', 'contact')->name('contact');
 });
 
-Route::controller(AccountController::class)->group(function () {
-    Route::get('account/register', 'register')->name('account.register');
+Route::controller(AccountController::class)->name('account.')->group(function () {
+    Route::get('account/register', 'register')->name('register');
+    Route::post('account/register', 'registerPost')->name('register.post');
+
 });

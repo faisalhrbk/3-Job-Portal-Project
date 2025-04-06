@@ -3,6 +3,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>CareerVibe | Find Best Jobs</title>
     <meta name="description" content="" />
     <meta name="viewport"
@@ -40,10 +42,9 @@
             </div>
         </nav>
     </header>
-  @yield('main')
+    @yield('main')
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -78,7 +79,13 @@
     <script src="{{ asset('assets/js/lazyload.17.6.0.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @yield('customJs')
 </body>
 
