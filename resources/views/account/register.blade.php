@@ -13,19 +13,19 @@
                                 <label for="" class="mb-2">Name*</label>
                                 <input type="text" name="name" id="name" class="form-control"
                                     placeholder="Enter Name">
-                           <p class="error-name"></p>
+                                <p class="error-name"></p>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="mb-2">Email*</label>
                                 <input type="text" name="email" id="email" class="form-control"
                                     placeholder="Enter Email">
-                                  <p class="error-email"></p>
+                                <p class="error-email"></p>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="mb-2">Password*</label>
                                 <input type="password" name="password" id="password" class="form-control"
                                     placeholder="Enter Password">
-                               <p class="error-password"></p>
+                                <p class="error-password"></p>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="mb-2">Confirm Password*</label>
@@ -33,7 +33,7 @@
                                     id="confirm_password" placeholder="Enter Password">
                                 <p class="error-confirm_password"></p>
                             </div>
-                            <button class="btn btn-primary mt-2">Register</button>
+                            <button class="btn btn-primary mt-2" type="submit">Register</button>
                         </form>
                     </div>
                     <div class="mt-4 text-center">
@@ -48,54 +48,63 @@
     <script>
         $("#registrationForm").submit(function(event) {
             event.preventDefault();
-        });
+            $.ajax({
+                url: '{{ route('account.register.post') }}',
+                type: 'post',
+                data: $('#registrationForm').serializeArray(),
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
 
-        $.ajax({
-            url: '{{ route('account.register.post') }}',
-            type: 'post',
-            data: $('#registrationForm').serializeArray(),
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
-                
-                if (response.status == false) {
-                    let errors = response.errors;
-                       alert('Form submitted'); // check submit ho bhi raha ya nahi
+                    if (response.status == false) {
+                        if (response.status == false) {
+                            let errors = response.errors;
 
-                    if (errors.name) {
-                        $('[name="name"]').addClass('is-invalid').siblings('p').addClass('invalid-feedback')
-                            .html(errors
-                                .name[0])
-                        
-                    } else {
-                        $('[name="name"]').removeClass('is-invalid').siblings('p').removeClass(
-                            'invalid-feedback').html()
+                            if (errors.name) {
+                                $("#name").addClass('is-invalid');
+                                $('.error-name').addClass('invalid-feedback').html(errors.name);
+                                console.log('in name if cond');
+
+                            } else {
+                                $("#name").removeClass('is-invalid');
+                                $('.error-name').removeClass('invalid-feedback').html('');
+                                console.log('in name else');
+                            }
+
+                            if (errors.email) {
+                                $("#email").addClass('is-invalid');
+                                $('.error-email').addClass('invalid-feedback').html(errors.email);
+                            } else {
+                                $("#email").removeClass('is-invalid');
+                                $('.error-email').removeClass('invalid-feedback').html('');
+                            }
+
+                            if (errors.password) {
+                                $("#password").addClass('is-invalid');
+                                $('.error-password').addClass('invalid-feedback').html(errors.password);
+                            } else {
+                                $("#password").removeClass('is-invalid');
+                                $('.error-password').removeClass('invalid-feedback').html('');
+                            }
+
+                            if (errors.confirm_password) {
+                                $("#confirm_password").addClass('is-invalid');
+                                $('.error-confirm_password').addClass('invalid-feedback').html(errors
+                                    .confirm_password);
+                            } else {
+                                $("#confirm_password").removeClass('is-invalid');
+                                $('.error-confirm_password').removeClass('invalid-feedback').html('');
+                            }
+                        } else {
+                            alert('Registered successfully!');
+                            $('#registrationForm')[0].reset();
+                            $('.is-invalid').removeClass('is-invalid');
+                            $('p').html('');
+                        }
                     }
-                    if (errors.email) {
-                        $('[name="email"]').addClass('is-invalid').siblings('p').addClass('invalid-feedback')
-                            .html(errors
-                                .email)
-                    } else {
-                        $('[name="email"]').removeClass('is-invalid').siblings('p').removeClass(
-                            'invalid-feedback').html()
-                    }
-                    if (errors.password) {
-                        $('[name="password"]').addClass('is-invalid').siblings('p').addClass('invalid-feedback')
-                            .html(errors.password)
-                    } else {
-                        $('[name="password"]').removeClass('is-invalid').siblings('p').removeClass(
-                            'invalid-feedback').html()
-                    }
-                    if (errors.confirm_password) {
-                        $('[name="confirm_password"]').addClass('is-invalid').siblings('p').addClass(
-                            'invalid-feedback').html(errors.confirm_password)
-                    } else {
-                        $('[name="confirm_password"]').removeClass('is-invalid').siblings('p').removeClass(
-                            'invalid-feedback').html()
-                    }
+
                 }
-
-            }
+            });
         });
     </script>
 @endsection

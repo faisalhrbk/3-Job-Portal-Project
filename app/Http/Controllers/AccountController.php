@@ -26,15 +26,26 @@ class AccountController extends Controller
 
         ]);
 
-        if ($validator->passes()) {
-         
-return redirect()->back();
-        } else {
-            return   response()->json([
+        // if ($validator->passes()) {
+        // } else {
+        //     return   response()->json([
+        //         'status' => false,
+        //         'errors' => $validator->errors(),
+        //     ]);
+        // }
+        if ($validator->fails()) {
+            return response()->json([
                 'status' => false,
                 'errors' => $validator->errors(),
             ]);
         }
+
+        // Ab yahan tum user create kar sakti ho ya sirf success message bhejo
+        return response()->json([
+            'status' => true,
+            'message' => 'Registration successful!'
+        ]);
     }
+    
     function login() {}
 }
