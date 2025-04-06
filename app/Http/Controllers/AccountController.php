@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,32 +21,24 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            // 'password' => 'required|confirmed',
-            'password' => 'required|same:confirm_password|min:3',
-            'confirm_password' => 'required'
-
+            'password' => 'required|min:3',
+            'confirm_password' => 'required|same:password'
         ]);
 
         // if ($validator->passes()) {
-        // } else {
-        //     return   response()->json([
-        //         'status' => false,
-        //         'errors' => $validator->errors(),
-        //     ]);
-        // }
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors(),
             ]);
         }
-
-        // Ab yahan tum user create kar sakti ho ya sirf success message bhejo
+      
+     
         return response()->json([
             'status' => true,
             'message' => 'Registration successful!'
         ]);
     }
-    
+
     function login() {}
 }

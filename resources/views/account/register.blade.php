@@ -95,12 +95,11 @@
                                 $("#confirm_password").removeClass('is-invalid');
                                 $('.error-confirm_password').removeClass('invalid-feedback').html('');
                             }
-                        } else {
-                            alert('Registered successfully!');
-                            $('#registrationForm')[0].reset();
-                            $('.is-invalid').removeClass('is-invalid');
-                            $('p').html('');
                         }
+                    } else {
+                        $('#registrationForm')[0].reset();
+                        $('.is-invalid').removeClass('is-invalid');
+                        $('p').html('');
                     }
 
                 }
