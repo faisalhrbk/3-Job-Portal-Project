@@ -4,6 +4,7 @@
 <div class="alert alert-success">
     <p>{{ session::get('success') }}</p>
 </div>
+{{-- //hii --}}
     
 @endif
   <section class="section-5">
