@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>Header</header>
-   <main>this is home page</main>
+ @yield('main')
     <footer>Footer</footer>
 </body>
 </html>
