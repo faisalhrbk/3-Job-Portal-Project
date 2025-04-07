@@ -55,11 +55,17 @@ class AccountController extends Controller
         ]);
         if ($validator->passes()) {
 
-            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                
+            if (Auth::attempt($request->only('email', 'password'))) {
+                return redirect()->route('account.profile');
+            } else {
+                return redirect()->back()->with('error', 'Either Email/password is incorrect');
             }
         } else {
-        return redirect()->back()->withErrors($validator)->withInput($request->only('email'));
+            return redirect()->back()->withErrors($validator)->withInput($request->only('email'));
         }
+    }
+    function profile()
+    {
+        return 'hello world';
     }
 }

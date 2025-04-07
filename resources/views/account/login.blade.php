@@ -5,6 +5,11 @@
             <p>{{ session::get('success') }}</p>
         </div>
     @endif
+       @if (Session::has('error'))
+        <div class="alert alert-danger">
+            <p>{{ session::get('error') }}</p>
+        </div>
+    @endif
     <section class="section-5">
         <div class="container my-5">
             <div class="py-lg-2">&nbsp;</div>
