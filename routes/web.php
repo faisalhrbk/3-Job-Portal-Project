@@ -13,5 +13,6 @@ Route::controller(AccountController::class)->name('account.')->group(function ()
     Route::get('account/register', 'register')->name('register');
     Route::post('account/register', 'registerPost')->name('register.post');
     Route::get('account/login', 'login')->name('login');
+    Route::post('account/login', 'loginPost')->name('login.post');
 
 });

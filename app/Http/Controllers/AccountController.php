@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -45,5 +46,20 @@ class AccountController extends Controller
     function login()
     {
         return view('account.login');
+    }
+    function loginPost(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:3',
+        ]);
+        if ($validator->passes()) {
+
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+                
+            }
+        } else {
+        return redirect()->back()->withErrors($validator)->withInput($request->only('email'));
+        }
     }
 }

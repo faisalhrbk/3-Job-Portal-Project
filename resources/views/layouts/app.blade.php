@@ -21,7 +21,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow">
             <div class="container">
-                <a class="navbar-brand" href="index.html">CareerVibe</a>
+                <a class="navbar-brand" href="/">CareerVibe</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -30,13 +30,13 @@
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-sm-0 mb-lg-0 ms-lg-4 mb-2 me-auto ms-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                            <a class="nav-link" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="jobs.html">Find Jobs</a>
                         </li>
                     </ul>
-                    <a class="btn btn-outline-primary me-2" href="login.html" type="submit">Login</a>
+                    <a class="btn btn-outline-primary me-2" href="{{ route('account.login') }}" type="submit">Login</a>
                     <a class="btn btn-primary" href="post-job.html" type="submit">Post a Job</a>
                 </div>
             </div>
