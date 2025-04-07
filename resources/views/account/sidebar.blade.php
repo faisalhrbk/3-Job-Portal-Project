@@ -1,0 +1,36 @@
+   <div class="card mb-4 border-0 p-3 shadow">
+                        <div class="s-body mt-3 text-center">
+                            <img src="assets/assets/images/avatar7.png" alt="avatar" class="rounded-circle img-fluid"
+                                style="width: 150px;">
+                            <h5 class="mt-3 pb-0">Mohit Singh</h5>
+                            <p class="text-muted fs-6 mb-1">Full Stack Developer</p>
+                            <div class="d-flex justify-content-center mb-2">
+                                <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"
+                                    class="btn btn-primary">Change Profile Picture</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card account-nav mb-lg-0 mb-4 border-0 shadow">
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between p-3">
+                                    <a href="account.html">Account Settings</a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <a href="post-job.html">Post a Job</a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <a href="my-jobs.html">My Jobs</a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <a href="job-applied.html">Jobs Applied</a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <a href="saved-jobs.html">Saved Jobs</a>
+                                </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <a href="{{ route('account.logout') }}">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>

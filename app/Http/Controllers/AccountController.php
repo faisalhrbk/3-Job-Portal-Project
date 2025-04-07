@@ -66,6 +66,10 @@ class AccountController extends Controller
     }
     function profile()
     {
-        return 'hello world';
+        return view('account.profile');
+    }
+    function logout(){
+        Auth::logout();
+        return redirect()->route('account.logout');
     }
 }

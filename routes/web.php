@@ -9,11 +9,13 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('contact', 'contact')->name('contact');
 });
 
-Route::prefix('account')->controller(AccountController::class)->name('account.')->group(function () {
+Route::prefix('account')->middleware('')->controller(AccountController::class)->name('account.')->group(function () {
     Route::get('register', 'register')->name('register');
     Route::post('register', 'registerPost')->name('register.post');
     Route::get('login', 'login')->name('login');
     Route::post('login', 'loginPost')->name('login.post');
     Route::get('profile', 'profile')->name('profile');
+    Route::get('logout', 'logout')->name('logout');
+
 
 });

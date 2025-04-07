@@ -42,7 +42,12 @@
             </div>
         </nav>
     </header>
+
+
+
     @yield('main')
+
+    
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -70,7 +75,7 @@
 
     <footer class="bg-dark bg-2 py-3">
         <div class="container">
-            <p class="fw-bold fs-6 pt-3 text-center text-white">© 2023 xyz company, all right reserved</p>
+            <p class="fw-bold fs-6 pt-3 text-center text-white">© 2025 xyz company, all right reserved</p>
         </div>
     </footer>
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
