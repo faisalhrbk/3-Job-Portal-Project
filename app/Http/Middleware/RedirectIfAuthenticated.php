@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthUser
+class RedirectIfAuthenticated
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,10 @@ class AuthUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         if (Auth::check()) {
-            return $next($request);
-        } else {
-            return redirect()->route('account.login');
+            return redirect('/home'); 
         }
+
+        return $next($request);
     }
 }
