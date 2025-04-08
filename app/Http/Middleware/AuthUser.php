@@ -20,7 +20,7 @@ class AuthUser
         if (Auth::check()) {
             return $next($request);
         } else {
-            dd('asdsada');
+           return redirect()->route('account.login');
         }
     }
 }
