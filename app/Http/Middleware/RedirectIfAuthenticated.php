@@ -17,7 +17,8 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            return redirect('/home'); 
+
+            return redirect()->route('account.profile')->with('error', 'logout first to login/register again');
         }
 
         return $next($request);

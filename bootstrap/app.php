@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AuthUser;
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -12,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(['authUser' => AuthUser::class]);
+        $middleware->alias(['authUser' => AuthUser::class,
+    'redirectIfAuthenticated' => RedirectIfAuthenticated::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
     

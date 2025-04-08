@@ -14,3 +14,4 @@ REMOVED FRONT FOLDER
 8, finally understand what is ajax fetchapi axios inertia 
 
 9, fetch api is better than ajax;
+ gand fath rahai hai ajjj
