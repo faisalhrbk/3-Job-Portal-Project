@@ -2,7 +2,7 @@
                         <div class="s-body mt-3 text-center">
                             <img src="assets/assets/images/avatar7.png" alt="avatar" class="rounded-circle img-fluid"
                                 style="width: 150px;">
-                            <h5 class="mt-3 pb-0">your Bro</h5>
+                            <h5 class="mt-3 pb-0">{{  ucfirst(Auth::user()->name ) }}</h5>
                             <p class="text-muted fs-6 mb-1">Full Stack Developer</p>
                             <div class="d-flex justify-content-center mb-2">
                                 <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"
