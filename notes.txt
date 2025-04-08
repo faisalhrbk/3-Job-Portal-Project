@@ -15,3 +15,6 @@ REMOVED FRONT FOLDER
 
 9, fetch api is better than ajax;
  gand fath rahai hai ajjj
+
+ 10, today we will work with user profile
+ 

@@ -66,7 +66,9 @@ class AccountController extends Controller
     }
     function profile()
     {
-        return view('account.profile');
+        $userId = Auth::user()->id;
+        $user = User::findorfail($userId);
+        return view('account.profile', compact('user'));
     }
     function logout(){
         Auth::logout();
