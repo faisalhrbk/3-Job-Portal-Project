@@ -64,6 +64,7 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Profile Image</label>
                             <input type="file" class="form-control" id="image" name="image">
+                            <p class="text-danger" id="image-error"></p>
                         </div>
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary mx-3">Update</button>

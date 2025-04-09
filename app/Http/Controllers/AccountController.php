@@ -112,10 +112,21 @@ class AccountController extends Controller
 
     function updateProfilePic(Request $request)
     {
+        $id = Auth::user()->id;
         $validator = Validator::make($request->all(), [
             'image' => 'required|image'
         ]);
         if ($validator->passes()) {
+            $image = $request->image;
+            $ext = $image->getClientOriginalExtension();
+           $imageName = $id. '-'. time().'.'.$ext; 
+           $image->move(public_path('/profile_pic/', $imageName));
+           User::where('id', $id)->update(['image' => $imageName]);
+           return response()->json([
+            'status' => true,
+            'errors' => [],
+           ]);
+
         } else {
             return response()->json([
                 'status' => false,
