@@ -73,6 +73,10 @@ class AccountController extends Controller
 
     function updateProfile(Request $request)
     {
+        // dd($request);
+
+        // ! for email uniqueness
+        //todo unique:table,column,expect,id
         $userId = Auth::user()->id;
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:2|max:20',
@@ -80,7 +84,6 @@ class AccountController extends Controller
         ]);
 
         if ($validator->passes()) {
-
             $user = User::find($userId);
             $user->name = $request->name;
             $user->email = $request->email;
@@ -102,6 +105,6 @@ class AccountController extends Controller
     function logout()
     {
         Auth::logout();
-        return redirect()->route('account.logout');
+        return redirect()->route('account.login');
     }
 }

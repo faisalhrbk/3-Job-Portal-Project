@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('main')
-    @if (session('error'))
-        <h1>hello</h1>
-        <p class="alert alert-danger fade show">{{ session('error') }}</p>
-    @endif
-
     <section class="section-5 bg-2">
 
         <div class="container py-5">
@@ -24,7 +19,7 @@
                     @include('account.sidebar')
                 </div>
                 <div class="col-lg-9">
-                    <form action="" method="POST" id="userForm" name="userForm">
+                    <form method="POST" id="userForm" name="userForm">
                         <div class="card mb-4 border-0 shadow">
                             <div class="card-body p-4">
                                 <h3 class="fs-4 mb-1">My Profile</h3>
@@ -32,21 +27,25 @@
                                     <label for="name" class="mb-2">Name*</label>
                                     <input type="text" name="name" id="name" placeholder="Enter Name"
                                         class="form-control" value="{{ $user->name }}">
+                                        <p class="error-name"></p>
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="mb-2">Email*</label>
                                     <input type="text" name="email" id="email" placeholder="Enter Email"
                                         value="{{ $user->email }}" class="form-control">
+                                        <p class="error-email"></p>
                                 </div>
                                 <div class="mb-4">
                                     <label for="designation" class="mb-2">Designation*</label>
                                     <input type="text" placeholder="Designation" class="form-control" name="designation"
                                         id="designation" value="{{ $user->designation }}">
+                                        <p class="error-designation"></p>
                                 </div>
                                 <div class="mb-4">
                                     <label for="mobile" class="mb-2">Mobile*</label>
                                     <input type="text" placeholder="Mobile" class="form-control" name="mobile"
-                                        id="mobile"{{ $user->mobile }}>
+                                        id="mobile" value="{{ $user->mobile }}"  >
+                                        <p class="error-mobile"></p>
                                 </div>
                             </div>
                             <div class="card-footer p-4">
@@ -82,19 +81,41 @@
 @endsection
 
 @section('customJs')
-    <script type="text/javascript">
+    <script >
         $("#userForm").submit(function(event) {
             event.preventDefault();
-        });
+        
 
-        $.ajax({
-            'url': '{{ route("account.update.profile") }}',
-            'type': 'put',
-            'dataType': 'json',
-            'data': $.("#userForm").serializeArray();
-            'success': function(response) {
+            $.ajax({
+                'url': '{{ route('account.update.profile') }}',
+                'type': 'post',
+                
+                'data': $("#userForm").serializeArray(),
+                'dataType': 'json',
+                'success': function(response) {
+                 if(response.status == true){
+        console.log("Form submission intercepted by AJAX");
+                 }else{
+                    let errors = response.errors;
+                      if (errors.name) {
+                                $("#name").addClass('is-invalid');
+                                $('.error-name').addClass('invalid-feedback').html(errors.name);
 
-            }
+                            } else {
+                                $("#name").removeClass('is-invalid');
+                                $('.error-name').removeClass('invalid-feedback').html('');
+                            }
+
+                            if (errors.email) {
+                                $("#email").addClass('is-invalid');
+                                $('.error-email').addClass('invalid-feedback').html(errors.email);
+                            } else {
+                                $("#email").removeClass('is-invalid');
+                                $('.error-email').removeClass('invalid-feedback').html('');
+                            }
+                 }
+                }
+            });
         });
     </script>
 @endsection
