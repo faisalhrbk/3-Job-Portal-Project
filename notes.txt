@@ -17,4 +17,13 @@ REMOVED FRONT FOLDER
  gand fath rahai hai ajjj
 
  10, today we will work with user profile
+
+
+
+ composer require intervention/image
+./composer.json 
+
+
+install this package for profile thumbnails
+
  
