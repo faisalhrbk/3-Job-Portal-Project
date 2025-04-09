@@ -25,30 +25,34 @@
                 </div>
                 <div class="col-lg-9">
                     <form action="" method="POST" id="userForm" name="userForm">
-                    <div class="card mb-4 border-0 shadow">
-                        <div class="card-body p-4">
-                            <h3 class="fs-4 mb-1">My Profile</h3>
-                            <div class="mb-4">
-                                <label for="name" class="mb-2" >Name*</label>
-                                <input type="text" name="name" id="name" placeholder="Enter Name" class="form-control" value="{{ $user->name }}">
+                        <div class="card mb-4 border-0 shadow">
+                            <div class="card-body p-4">
+                                <h3 class="fs-4 mb-1">My Profile</h3>
+                                <div class="mb-4">
+                                    <label for="name" class="mb-2">Name*</label>
+                                    <input type="text" name="name" id="name" placeholder="Enter Name"
+                                        class="form-control" value="{{ $user->name }}">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="email" class="mb-2">Email*</label>
+                                    <input type="text" name="email" id="email" placeholder="Enter Email"
+                                        value="{{ $user->email }}" class="form-control">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="designation" class="mb-2">Designation*</label>
+                                    <input type="text" placeholder="Designation" class="form-control" name="designation"
+                                        id="designation" value="{{ $user->designation }}">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="mobile" class="mb-2">Mobile*</label>
+                                    <input type="text" placeholder="Mobile" class="form-control" name="mobile"
+                                        id="mobile"{{ $user->mobile }}>
+                                </div>
                             </div>
-                            <div class="mb-4">
-                                <label for="email" class="mb-2">Email*</label>
-                                <input type="text"  name="email" id="email" placeholder="Enter Email" value="{{ $user->email }}" class="form-control">
-                            </div>
-                            <div class="mb-4">
-                                <label for="designation" class="mb-2">Designation*</label>
-                                <input type="text" placeholder="Designation" class="form-control" name="designation" id="designation"  value="{{ $user->designation }}">
-                            </div>
-                            <div class="mb-4">
-                                <label for="mobile" class="mb-2">Mobile*</label>
-                                <input type="text" placeholder="Mobile" class="form-control" name="mobile" id="mobile"{{ $user->mobile }} >
+                            <div class="card-footer p-4">
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
-                        <div class="card-footer p-4">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </div>
-                    </div>
                     </form>
 
                     <div class="card mb-4 border-0 shadow">
@@ -75,4 +79,22 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('customJs')
+    <script type="text/javascript">
+        $("#userForm").submit(function(event) {
+            event.preventDefault();
+        });
+
+        $.ajax({
+            'url': '{{ route("account.update.profile") }}',
+            'type': 'put',
+            'dataType': 'json',
+            'data': $.("#userForm").serializeArray();
+            'success': function(response) {
+
+            }
+        });
+    </script>
 @endsection

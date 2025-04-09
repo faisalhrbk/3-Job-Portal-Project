@@ -70,7 +70,37 @@ class AccountController extends Controller
         $user = User::findorfail($userId);
         return view('account.profile', compact('user'));
     }
-    function logout(){
+
+    function updateProfile(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:2|max:20',
+            'email' => 'required|email|unique:users,email,' . $userId . ',id',
+        ]);
+
+        if ($validator->passes()) {
+
+            $user = User::find($userId);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->designation = $request->designation;
+            $user->mobile  = $request->mobile;
+            $user->save();
+            session()->flash('success', 'Profile Updated Successfully');
+            return response()->json([
+                'status' => true,
+                'errors' => [],
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ]);
+        }
+    }
+    function logout()
+    {
         Auth::logout();
         return redirect()->route('account.logout');
     }

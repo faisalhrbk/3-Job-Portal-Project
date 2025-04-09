@@ -20,5 +20,6 @@ Route::middleware('redirectIfAuthenticated')->controller(AccountController::clas
 Route::prefix('account')->middleware('authUser')
     ->controller(AccountController::class)->name('account.')->group(function () {
         Route::get('profile', 'profile')->name('profile');
+        Route::post('update-profile', 'updateProfile')->name('update.profile');
         Route::get('logout', 'logout')->name('logout');
     });
