@@ -43,10 +43,14 @@ class AccountController extends Controller
         }
     }
 
+
+
     function login()
     {
         return view('account.login');
     }
+
+
     function loginPost(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -64,12 +68,15 @@ class AccountController extends Controller
             return redirect()->back()->withErrors($validator)->withInput($request->only('email'));
         }
     }
+
+
     function profile()
     {
         $userId = Auth::user()->id;
         $user = User::findorfail($userId);
         return view('account.profile', compact('user'));
     }
+
 
     function updateProfile(Request $request)
     {
@@ -102,6 +109,8 @@ class AccountController extends Controller
             ]);
         }
     }
+
+  
     function logout()
     {
         Auth::logout();

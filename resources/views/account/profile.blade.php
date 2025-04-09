@@ -19,6 +19,7 @@
                     @include('account.sidebar')
                 </div>
                 <div class="col-lg-9">
+                    @include('message')
                     <form method="POST" id="userForm" name="userForm">
                         <div class="card mb-4 border-0 shadow">
                             <div class="card-body p-4">
@@ -94,7 +95,7 @@
                 'dataType': 'json',
                 'success': function(response) {
                  if(response.status == true){
-        console.log("Form submission intercepted by AJAX");
+                 window.location="{{ route('account.profile') }}"
                  }else{
                     let errors = response.errors;
                       if (errors.name) {
