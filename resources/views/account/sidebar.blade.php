@@ -1,10 +1,10 @@
    <div class="card mb-4 border-0 p-3 shadow">
        <div class="s-body mt-3 text-center">
            @if (Auth::user()->image != '')
-               <img src="{{ public_path('profile_pic/'. Auth::user()->image) }}" alt="avatar" class="rounded-circle img-fluid"
+               <img src="{{ asset('profile_pic/' . Auth::user()->image) }}" alt="maljar" class="rounded-circle img-fluid"
                    style="width: 150px;">
-                   @else
-                     <img src="{{ asset('assets/images/avatar7.png') }}" alt="avatar" class="rounded-circle img-fluid"
+           @else
+               <img src="{{ asset('assets/images/avatar7.png') }}" alt="avatar" class="rounded-circle img-fluid"
                    style="width: 150px;">
            @endif
 
