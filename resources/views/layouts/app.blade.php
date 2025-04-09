@@ -62,7 +62,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="" method="post" id="profilePicForm" name="profilePicForm">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Profile Image</label>
                             <input type="file" class="form-control" id="image" name="image">
@@ -83,6 +83,14 @@
             <p class="fw-bold fs-6 pt-3 text-center text-white">© 2025 xyz company, all right reserved</p>
         </div>
     </footer>
+
+
+
+
+
+
+
+
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.5.1.3.min.js') }}"></script>
     
@@ -90,11 +98,37 @@
     <script src="{{ asset('assets/js/lazyload.17.6.0.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+
+
+
+
+
+
+
+
     <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+        $('#profilePicForm').submit(function(event){
+            event.preventDefault();
+
+            let formData = new formData(this);
+            $.ajax({
+                url : '{{ route('account.update.profilePic') }}',
+                type: 'post',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success:  function(response){
+
+                }
+
+            });
         });
     </script>
     @yield('customJs')

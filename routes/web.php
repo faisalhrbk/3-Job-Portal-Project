@@ -16,11 +16,11 @@ Route::middleware('redirectIfAuthenticated')->controller(AccountController::clas
     Route::post('account/login', 'loginPost')->name('login.post');
 });
 
-
 Route::prefix('account')->middleware('authUser')
     ->controller(AccountController::class)->name('account.')->group(function () {
 
         Route::get('profile', 'profile')->name('profile');
         Route::post('update-profile', 'updateProfile')->name('update.profile');
         Route::get('logout', 'logout')->name('logout');
+        Route::post('update/profile-pic', 'updateProfilePic')->name('update.profilePic');
     });
