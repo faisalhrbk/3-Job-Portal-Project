@@ -116,17 +116,25 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'image' => 'required|image'
         ]);
+        // if ($validator->passes()) {
+        //     $image = $request->image;
+        //     $ext = $image->getClientOriginalExtension();
+        //    $imageName = $id. '-'. time().'.'.$ext; 
+        //    $image->move(public_path('/profile_pic/', $imageName));
+        //    User::where('id', $id)->update(['image' => $imageName]);
+        //    return response()->json([
+        //     'status' => true,
+        //     'errors' => [],
+        //    ]);
         if ($validator->passes()) {
-            $image = $request->image;
-            $ext = $image->getClientOriginalExtension();
-           $imageName = $id. '-'. time().'.'.$ext; 
-           $image->move(public_path('/profile_pic/', $imageName));
-           User::where('id', $id)->update(['image' => $imageName]);
-           return response()->json([
-            'status' => true,
-            'errors' => [],
-           ]);
-
+            $imageName = $id . '-' . time() . '.' . $request->image->extension();
+            $request->image->move(public_path('profile_pic'), $imageName);
+            User::findorfail($id)->update(['image' => $imageName]);
+            session()->flash('success' ,'profile picture update successfully');
+            return response()->json([
+                'status' => true,
+                'errors' => [],
+            ]);
         } else {
             return response()->json([
                 'status' => false,

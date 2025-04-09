@@ -114,6 +114,8 @@
                         if(errors.image){
                            $("#image-error").html(errors.image); 
                         }
+                    } else {
+                        window.location.href = '{{ url()->current() }}'
                     }
 
                 }
