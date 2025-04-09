@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 
 class AccountController extends Controller
 {
@@ -121,7 +124,12 @@ class AccountController extends Controller
             $ext = $image->getClientOriginalExtension();
             $imageName = $id . '-' . time() . '.' . $ext;
             $image->move(public_path('profile_pic'), $imageName);
-  User::where('id', $id)->update(['image' => $imageName]);
+            User::where('id', $id)->update(['image' => $imageName]);
+
+            //! creating small thumbnail for profile
+            $srcPath =  public_path('profile_pic'), $imageName
+            $manager = new ImageManager(Driver::class);
+            $image = $manager->read();
             session()->flash('success', 'profile picture update successfully');
             return response()->json([
                 'status' => true,
