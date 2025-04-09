@@ -36,23 +36,21 @@
                             <a class="nav-link" aria-current="page" href="jobs.html">Find Jobs</a>
                         </li>
                     </ul>
-                    @if(!Auth::check())
-                     <a class="btn btn-outline-primary me-2" href="{{ route('account.login') }}" type="submit">Login</a>
-                     @else 
-                      <a class="btn btn-outline-primary me-2" href="{{ route('account.profile') }}" type="submit">My Account</a>
+                    @if (!Auth::check())
+                        <a class="btn btn-outline-primary me-2" href="{{ route('account.login') }}"
+                            type="submit">Login</a>
+                    @else
+                        <a class="btn btn-outline-primary me-2" href="{{ route('account.profile') }}" type="submit">My
+                            Account</a>
                     @endif
-                   
+
                     <a class="btn btn-primary" href="post-job.html" type="submit">Post a Job</a>
                 </div>
             </div>
         </nav>
     </header>
 
-
-
     @yield('main')
-
-    
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -84,28 +82,13 @@
         </div>
     </footer>
 
-
-
-
-
-
-
-
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.5.1.3.min.js') }}"></script>
-    
+
     <script src="{{ asset('assets/js/instantpages.5.1.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/lazyload.17.6.0.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-
-
-
-
-
-
-
-
 
     <script>
         $.ajaxSetup({
@@ -113,18 +96,24 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $('#profilePicForm').submit(function(event){
+        $('#profilePicForm').submit(function(event) {
             event.preventDefault();
 
             let formData = new formData(this);
             $.ajax({
-                url : '{{ route('account.update.profilePic') }}',
+                url: '{{ route('account.update.profilePic') }}',
                 type: 'post',
                 data: formData,
                 dataType: 'json',
                 contentType: false,
                 processData: false,
-                success:  function(response){
+                success: function(response) {
+                    if (response.status == false) {
+                        let errors = response.errors;
+                        if(errors.image){
+                           $("#image-error").html(errors.image); 
+                        }
+                    }
 
                 }
 
