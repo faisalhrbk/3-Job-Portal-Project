@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('main')
+
     <section class="section-5 bg-2">
 
         <div class="container py-5">
@@ -86,9 +87,24 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div>
-                                {{ $jobs->links() }}
-                            </div>
+                            {{-- do this  or use paginator class in AppServiceProvider --}}
+                            <style>
+                                .w-5.h-5 {
+                                    width: 10px;
+                                    height: 10px;
+                                }
+
+                                .pagination {
+                                    font-size: 0.75rem;
+                                }
+                                    /* {{-- <div class="d-flex justify-content-center mt-2">
+                                {{ $jobs->links('pagination::bootstrap-5') }}
+
+                            </div> --}} */
+                            </style>
+                        
+
+                            {{ $jobs->links() }}
                         </div>
                     </div>
                 </div>

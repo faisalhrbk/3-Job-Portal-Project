@@ -52,3 +52,19 @@ this will alter the specfic
 and inside file
 
 instead of schema::create we will use schema::table
+
+
+// explored about fake() 
+got more fake reallife methods
+
+
+
+to fix pagination 
+
+in app servis provider file
+use Illuminate\Pagination\Paginator;
+
+ public function boot(): void
+    {
+        Paginator::useBootstrapFive();
+    }
