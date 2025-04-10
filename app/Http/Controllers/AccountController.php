@@ -20,7 +20,6 @@ class AccountController extends Controller
     }
 
 
-    // this method will register user, this is ajax method
     function registerPost(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -46,7 +45,6 @@ class AccountController extends Controller
             ]);
         }
     }
-
 
 
     function login()
@@ -120,7 +118,7 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'image' => 'required|image'
         ]);
-        
+
         if ($validator->passes()) {
             $image = $request->image;
             $ext = $image->getClientOriginalExtension();
@@ -139,7 +137,7 @@ class AccountController extends Controller
 
             //delete old profile pic
             File::delete(public_path('profile_pic/' . Auth::user()->image));
-            File::delete(public_path('profile_pic/thumb/'. Auth::user()->image));
+            File::delete(public_path('profile_pic/thumb/' . Auth::user()->image));
 
             return response()->json([
                 'status' => true,
@@ -153,7 +151,10 @@ class AccountController extends Controller
         }
     }
 
-
+    function createJob()
+    {
+        return view('account.job.create');
+    }
     function logout()
     {
         Auth::logout();
