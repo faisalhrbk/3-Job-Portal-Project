@@ -36,9 +36,9 @@
                                         <select name="category" id="category" class="form-control">
                                             <option value="">Select a Category</option>
                                             @if ($categories->isNotEmpty())
-                                            @foreach ($categories as $category)
-                                                 <option value="{{ $category->name }}">{{ $category->name }}</option> 
-                                            @endforeach
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                                @endforeach
                                             @endif
                                         </select>
                                     </div>
@@ -47,11 +47,13 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <label for="" class="mb-2">Job Nature<span class="req">*</span></label>
-                                        <select class="form-select">
-                                            <option>Full Time</option>
-                                            <option>Part Time</option>
-                                            <option>Remote</option>
-                                            <option>Freelance</option>
+                                        <select name="jobType" id="jobType" class="form-select">
+                                            <option value="">Select Job Type</option>
+                                            @if ($jobTypes->isNotEmpty())
+                                                @foreach ($jobTypes as $jobType)
+                                                    <option value="{{ $jobType->name }}">{{ $jobType->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-4">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\JobType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -154,14 +155,15 @@ class AccountController extends Controller
 
     function createJob()
     {
+        $jobTypes = JobType::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->where('status', 1)->get();
-        return view('account.job.create', compact('categories'));
+        return view('account.job.create', compact('categories', 'jobTypes'));
     }
 
 
 
 
-    
+
     function logout()
     {
         Auth::logout();
