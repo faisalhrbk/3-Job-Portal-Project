@@ -9,4 +9,11 @@ class Job extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    function jobType()
+    {
+        return $this->belongsTo(JobType::class);
+    }
+    function category(){
+        return $this->belongsTo(Category::class);
+    }
 }
