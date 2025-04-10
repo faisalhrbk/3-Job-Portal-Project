@@ -193,12 +193,11 @@ class AccountController extends Controller
             $job->company_location = $request->company_location;
             $job->company_website = $request->company_website;
             $job->save();
-            session()->flash('success', 'Job Added Successfully'); 
+            session()->flash('success', 'Job Added Successfully');
             return response()->json([
                 'status' => true,
                 'errors' => [],
             ]);
-
         } else {
             return response()->json([
                 'status' => false,
@@ -208,9 +207,10 @@ class AccountController extends Controller
     }
 
 
-function myJobs(){
-    return view('account.job.myJobs');
-}
+    function myJobs()
+    {
+        return view('account.job.myJobs');
+    }
 
 
     function logout()
