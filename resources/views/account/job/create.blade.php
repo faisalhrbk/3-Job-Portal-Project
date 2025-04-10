@@ -30,6 +30,7 @@
                                         <label for="" class="mb-2">Title<span class="req">*</span></label>
                                         <input type="text" placeholder="Job Title" id="title" name="title"
                                             class="form-control">
+                                        <p></p>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <label for="" class="mb-2">Category<span class="req">*</span></label>
@@ -41,6 +42,7 @@
                                                 @endforeach
                                             @endif
                                         </select>
+                                        <p></p>
                                     </div>
                                 </div>
 
@@ -55,11 +57,13 @@
                                                 @endforeach
                                             @endif
                                         </select>
+                                        <p></p>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <label for="" class="mb-2">Vacancy<span class="req">*</span></label>
                                         <input type="number" min="1" placeholder="Vacancy" id="vacancy"
                                             name="vacancy" class="form-control">
+                                        <p></p>
                                     </div>
                                 </div>
 
@@ -74,6 +78,7 @@
                                         <label for="" class="mb-2">Location<span class="req">*</span></label>
                                         <input type="text" placeholder="location" id="location" name="location"
                                             class="form-control">
+                                        <p></p>
                                     </div>
                                 </div>
 
@@ -81,6 +86,7 @@
                                     <label for="" class="mb-2">Description<span class="req">*</span></label>
                                     <textarea class="form-control" name="description" id="description" cols="5" rows="5"
                                         placeholder="Description"></textarea>
+                                    <p></p>
                                 </div>
                                 <div class="mb-4">
                                     <label for="" class="mb-2">Benefits</label>
@@ -111,6 +117,8 @@
                                         <option value="9"> 9 Years</option>
                                         <option value="10"> 10 Years</option>
                                         <option value="10_plus">10+ Years</option>
+                                    </select>
+                                    <p></p>
                                 </div>
 
                                 <div class="mb-4">
@@ -126,6 +134,7 @@
                                         <label for="" class="mb-2">Name<span class="req">*</span></label>
                                         <input type="text" placeholder="Company Name" id="company_name"
                                             name="company_name" class="form-control">
+                                        <p></p>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
@@ -168,21 +177,40 @@
                         window.location = "{{ route('account.profile') }}"
                     } else {
                         let errors = response.errors;
-                        if (errors.name) {
-                            $("#name").addClass('is-invalid');
-                            $('.error-name').addClass('invalid-feedback').html(errors.name);
-
+                        if (errors.title) {
+                            $("#title").addClass('is-invalid').siblings('p').addClass(
+                                'invalid-feedback').html(errors.title);
                         } else {
-                            $("#name").removeClass('is-invalid');
-                            $('.error-name').removeClass('invalid-feedback').html('');
+                            $("#title").removeClass('is-invalid').siblings('p').removeClass(
+                                'invalid-feedback').html('');
+                        }if (errors.category) {
+                            $("#category").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.category);
+                        }else{
+                            $("#category").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
+                        }if (errors.jobType) {
+                            $("#jobType").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.jobType);
+                        }else{
+                            $("#jobType").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
+                        }vacancy
+                        if (errors.vacancy) {
+                            $("#vacancy").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.vacancy);
+                        }else{
+                            $("#vacancy").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
                         }
-
-                        if (errors.email) {
-                            $("#email").addClass('is-invalid');
-                            $('.error-email').addClass('invalid-feedback').html(errors.email);
-                        } else {
-                            $("#email").removeClass('is-invalid');
-                            $('.error-email').removeClass('invalid-feedback').html('');
+                        if (errors.location) {
+                            $("#location").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.location);
+                        }else{
+                            $("#location").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
+                        }
+                        if (errors.description) {
+                            $("#description").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.description);
+                        }else{
+                            $("#description").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
+                        }
+                        if (errors.company_name) {
+                            $("#company_name").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.company_name);
+                        }else{
+                            $("#company_name").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
                         }
                     }
                 }
