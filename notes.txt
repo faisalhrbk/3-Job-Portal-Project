@@ -31,3 +31,10 @@ finally fixed error now i can work
 
 
 11, Post a JOB module
+
+seriliaze array method 
+
+ek array create karega  aur us array kay jitni bhe forms kay andr fields hongi unko object kay from mai store karega
+
+har key value kay lye ek object banayega
+

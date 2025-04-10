@@ -161,6 +161,30 @@ class AccountController extends Controller
     }
 
 
+    function createJobPost(Request $request)
+    {
+        $rules = [
+            'title' => 'required|string|min:10|max:200',
+            'category' => 'required',
+            'jobType' => 'required',
+            'vacancy' => 'required|integer',
+            'location' => 'required|max:50',
+            'description' => 'required',
+            'company_name' => 'required|min:3|max:50',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->passes()){
+
+        } else{
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ]);
+        }
+    }
+
+
 
 
 

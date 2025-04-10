@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <label for="" class="mb-2">Category<span class="req">*</span></label>
-                                        <select name="category" id="category" class="form-control">
+                                        <select name="category" id="category" class="form-select">
                                             <option value="">Select a Category</option>
                                             @if ($categories->isNotEmpty())
                                                 @foreach ($categories as $category)
@@ -72,7 +72,7 @@
 
                                     <div class="col-md-6 mb-4">
                                         <label for="" class="mb-2">Location<span class="req">*</span></label>
-                                        <input type="text" placeholder="location" id="location" name="Location"
+                                        <input type="text" placeholder="location" id="location" name="location"
                                             class="form-control">
                                     </div>
                                 </div>
@@ -96,9 +96,25 @@
                                     <textarea class="form-control" name="qualifications" id="qualifications" cols="5" rows="5"
                                         placeholder="Qualifications"></textarea>
                                 </div>
+                                <div class="mb-4">
+                                    <label for="" class="mb-2">Experience <span class="req">*</span></label>
+                                    <select name="experience" id="experience" class="form-select mb-3">
+                                        <option value="">Select Experience</option>
+                                        <option value="1">1 Year</option>
+                                        <option value="2">2 Years</option>
+                                        <option value="3">3 Years</option>
+                                        <option value="4">4 Years</option>
+                                        <option value="5">5 Years</option>
+                                        <option value="6">6 Years</option>
+                                        <option value="7">7 Years</option>
+                                        <option value="8">8 Years</option>
+                                        <option value="9"> 9 Years</option>
+                                        <option value="10"> 10 Years</option>
+                                        <option value="10_plus">10+ Years</option>
+                                </div>
 
                                 <div class="mb-4">
-                                    <label for="" class="mb-2">Keywords<span class="req">*</span></label>
+                                    <label for="" class="mb-2">Keywords</label>
                                     <input type="text" placeholder="keywords" id="keywords" name="keywords"
                                         class="form-control">
                                 </div>
@@ -114,19 +130,19 @@
 
                                     <div class="col-md-6 mb-4">
                                         <label for="" class="mb-2">Location</label>
-                                        <input type="text" placeholder="Location" id="location" name="location"
-                                            class="form-control">
+                                        <input type="text" placeholder="Location" id="location"
+                                            name="company_location" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="" class="mb-2">Website</label>
-                                    <input type="text" placeholder="Website" id="website" name="website"
+                                    <input type="text" placeholder="Website" id="website" name="company_website"
                                         class="form-control">
                                 </div>
                             </div>
                             <div class="card-footer p-4">
-                                <button type="button" class="btn btn-primary">Save Job</button>
+                                <button type="submit" class="btn btn-primary">Save Job</button>
                             </div>
                         </div>
                     </form>
@@ -138,15 +154,14 @@
 
 @section('customJs')
     <script>
-        $("#userForm").submit(function(event) {
+        $("#createJobForm").submit(function(event) {
             event.preventDefault();
 
 
             $.ajax({
-                'url': '{{ route('account.update.profile') }}',
+                'url': "{{ route('account.createJobPost') }}",
                 'type': 'post',
-
-                'data': $("#userForm").serializeArray(),
+                'data': $("#createJobPost").serializeArray(),
                 'dataType': 'json',
                 'success': function(response) {
                     if (response.status == true) {
