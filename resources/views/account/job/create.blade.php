@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-lg-9">
                     @include('message')
-                    <form action="">
+                    <form action="" method="POST" id="createJobForm" name="createJobForm">
                         <div class="card mb-4 border-0 shadow">
 
                             <div class="card-body card-form p-4">
@@ -35,10 +35,11 @@
                                         <label for="" class="mb-2">Category<span class="req">*</span></label>
                                         <select name="category" id="category" class="form-control">
                                             <option value="">Select a Category</option>
-                                            <option value="">Engineering</option>
-                                            <option value="">Accountant</option>
-                                            <option value="">Information Technology</option>
-                                            <option value="">Fashion designing</option>
+                                            @if ($categories->isNotEmpty())
+                                            @foreach ($categories as $category)
+                                                 <option value="{{ $category->name }}">{{ $category->name }}</option> 
+                                            @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
