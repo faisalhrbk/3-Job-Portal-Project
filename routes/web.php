@@ -28,4 +28,5 @@ Route::prefix('account')->middleware('authUser')
         Route::post('update/profile-pic', 'updateProfilePic')->name('update.profilePic');
         Route::get('create-job', 'createJob')->name('createJob');
         Route::post('create-job', 'createJobPost')->name('createJobPost');
+        Route::get('my-jobs', 'myJobs')->name('myJobs');
     });

@@ -38,3 +38,17 @@ ek array create karega  aur us array kay jitni bhe forms kay andr fields hongi u
 
 har key value kay lye ek object banayega
 
+
+
+created ajax for create jobs controller and routes
+
+
+one imp thing
+to alter a table and add extra columns
+
+php artisan make:migration alter_jobs_table
+
+this will alter the specfic 
+and inside file
+
+instead of schema::create we will use schema::table

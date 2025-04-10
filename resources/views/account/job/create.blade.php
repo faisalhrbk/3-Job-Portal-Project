@@ -166,16 +166,34 @@
         $("#createJobForm").submit(function(event) {
             event.preventDefault();
 
+            console.log('bruhhh');
 
             $.ajax({
                 'url': "{{ route('account.createJobPost') }}",
                 'type': 'post',
-                'data': $("#createJobPost").serializeArray(),
                 'dataType': 'json',
+                'data': $("#createJobPost").serializeArray(),
                 'success': function(response) {
                     if (response.status == true) {
-                        window.location = "{{ route('account.profile') }}"
+                        $("#title").removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html('');
+                        $("#category").removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html('');
+                        $("#jobType").removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html('');
+                        $("#vacancy").removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html('');
+                        $("#location").removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html('');
+                        $("#description").removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html('');
+                        $("#company_name").removeClass('is-invalid').siblings('p').removeClass(
+                            'invalid-feedback').html('');
+                        window.location = "{{ route('account.myJobs') }}"
+
                     } else {
+
+                        console.log('in errors else');
                         let errors = response.errors;
                         if (errors.title) {
                             $("#title").addClass('is-invalid').siblings('p').addClass(
@@ -183,34 +201,49 @@
                         } else {
                             $("#title").removeClass('is-invalid').siblings('p').removeClass(
                                 'invalid-feedback').html('');
-                        }if (errors.category) {
-                            $("#category").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.category);
-                        }else{
-                            $("#category").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
-                        }if (errors.jobType) {
-                            $("#jobType").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.jobType);
-                        }else{
-                            $("#jobType").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
-                        }vacancy
+                        }
+                        if (errors.category) {
+                            $("#category").addClass('is-invalid').siblings('p').addClass(
+                                'invalid-feedback').html(errors.category);
+                        } else {
+                            $("#category").removeClass('is-invalid').siblings('p').removeClass(
+                                'invalid-feedback').html('');
+                        }
+                        if (errors.jobType) {
+                            $("#jobType").addClass('is-invalid').siblings('p').addClass(
+                                'invalid-feedback').html(errors.jobType);
+                        } else {
+                            $("#jobType").removeClass('is-invalid').siblings('p').removeClass(
+                                'invalid-feedback').html('');
+                        }
+                        vacancy
                         if (errors.vacancy) {
-                            $("#vacancy").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.vacancy);
-                        }else{
-                            $("#vacancy").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
+                            $("#vacancy").addClass('is-invalid').siblings('p').addClass(
+                                'invalid-feedback').html(errors.vacancy);
+                        } else {
+                            $("#vacancy").removeClass('is-invalid').siblings('p').removeClass(
+                                'invalid-feedback').html('');
                         }
                         if (errors.location) {
-                            $("#location").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.location);
-                        }else{
-                            $("#location").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
+                            $("#location").addClass('is-invalid').siblings('p').addClass(
+                                'invalid-feedback').html(errors.location);
+                        } else {
+                            $("#location").removeClass('is-invalid').siblings('p').removeClass(
+                                'invalid-feedback').html('');
                         }
                         if (errors.description) {
-                            $("#description").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.description);
-                        }else{
-                            $("#description").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
+                            $("#description").addClass('is-invalid').siblings('p').addClass(
+                                'invalid-feedback').html(errors.description);
+                        } else {
+                            $("#description").removeClass('is-invalid').siblings('p').removeClass(
+                                'invalid-feedback').html('');
                         }
                         if (errors.company_name) {
-                            $("#company_name").addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors.company_name);
-                        }else{
-                            $("#company_name").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
+                            $("#company_name").addClass('is-invalid').siblings('p').addClass(
+                                'invalid-feedback').html(errors.company_name);
+                        } else {
+                            $("#company_name").removeClass('is-invalid').siblings('p').removeClass(
+                                'invalid-feedback').html('');
                         }
                     }
                 }

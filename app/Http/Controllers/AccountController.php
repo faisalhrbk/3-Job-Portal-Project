@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\JobType;
+use App\Models\Job;
 use App\Models\User;
+use App\Models\JobType;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Drivers\Gd\Driver;
 
 
@@ -174,9 +175,31 @@ class AccountController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->passes()){
+        // dd($rules);
+        if ($validator->passes()) {
+            $job = new Job();
+            $job->title = $request->title;
+            $job->category_id = $request->category;
+            $job->job_type_id = $request->jobType;
+            $job->vacancy = $request->vacancy;
+            $job->salary = $request->salary;
+            $job->location = $request->location;
+            $job->description = $request->description;
+            $job->responsibility = $request->responsibility;
+            $job->qualifications = $request->qualifications;
+            $job->keywords = $request->keywords;
+            $job->experience = $request->experience;
+            $job->company_name = $request->company_name;
+            $job->company_location = $request->company_location;
+            $job->company_website = $request->company_website;
+            $job->save();
+            session()->flash('success', 'Job Added Successfully'); 
+            return response()->json([
+                'status' => true,
+                'errors' => [],
+            ]);
 
-        } else{
+        } else {
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors(),
@@ -185,7 +208,9 @@ class AccountController extends Controller
     }
 
 
-
+function myJobs(){
+    return view('account.job.myJobs');
+}
 
 
     function logout()
