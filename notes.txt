@@ -28,4 +28,6 @@ install this package for profile thumbnails
 
 
 finally fixed error now i can work
- 
+
+
+11, Post a JOB module
