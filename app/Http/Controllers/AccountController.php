@@ -119,6 +119,7 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'image' => 'required|image'
         ]);
+        
         if ($validator->passes()) {
             $image = $request->image;
             $ext = $image->getClientOriginalExtension();
@@ -127,29 +128,17 @@ class AccountController extends Controller
             User::where('id', $id)->update(['image' => $imageName]);
 
             //! creating small thumbnail for profile
-            $srcPath =  public_path('profile_pic' . $imageName);
-            $manager = new ImageManager(Driver::class);
-            $image = $manager->read($srcPath);
-            $image->cover(150, 150);
-            $image->toPng()->save(public_path('profile_pic/thumb' . $imageName));
+            // $srcPath =  public_path('profile_pic' . $imageName);
+            // $manager = new ImageManager(Driver::class);
+            // $image = $manager->read($srcPath);
+            // $image->cover(150, 150);
+            // $image->toPng()->save(public_path('profile_pic/thumb' . $imageName));
             session()->flash('success', 'profile picture update successfully');
             return response()->json([
                 'status' => true,
                 'errors' => [],
             ]);
-        }
-
-        // if ($validator->passes()) {
-        //     $imageName = $id . '-' . time() . '.' . $request->image->extension();
-        //     $request->image->move(public_path('profile_pic'), $imageName);
-        //     User::findorfail($id)->update(['image' => $imageName]);
-        //     session()->flash('success' ,'profile picture update successfully');
-        //     return response()->json([
-        //         'status' => true,
-        //         'errors' => [],
-        //     ]);
-        // } 
-        else {
+        } else {
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors(),
