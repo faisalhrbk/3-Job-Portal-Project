@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -134,6 +135,12 @@ class AccountController extends Controller
             $image->cover(150, 150);
             $image->toPng()->save(public_path('profile_pic/thumb/' . $imageName));
             session()->flash('success', 'profile picture update successfully');
+
+
+            //delete old profile pic
+            File::delete(public_path('profile_pic/' . Auth::user()->image));
+            File::delete(public_path('profile_pic/thumb/'. Auth::user()->image));
+
             return response()->json([
                 'status' => true,
                 'errors' => [],
