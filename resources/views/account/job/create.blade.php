@@ -38,7 +38,7 @@
                                             <option value="">Select a Category</option>
                                             @if ($categories->isNotEmpty())
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -53,7 +53,7 @@
                                             <option value="">Select Job Type</option>
                                             @if ($jobTypes->isNotEmpty())
                                                 @foreach ($jobTypes as $jobType)
-                                                    <option value="{{ $jobType->name }}">{{ $jobType->name }}</option>
+                                                    <option value="{{ $jobType->id }}">{{ $jobType->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -165,14 +165,20 @@
     <script>
         $("#createJobForm").submit(function(event) {
             event.preventDefault();
+            let form = $('#createJobForm ')[0]; // form DOM object
+            let formData = new FormData(form);
 
-            console.log('bruhhh');
+
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+
 
             $.ajax({
                 'url': "{{ route('account.createJobPost') }}",
                 'type': 'post',
                 'dataType': 'json',
-                'data': $("#createJobPost").serializeArray(),
+                'data': $("#createJobForm").serializeArray(),
                 'success': function(response) {
                     if (response.status == true) {
                         $("#title").removeClass('is-invalid').siblings('p').removeClass(
