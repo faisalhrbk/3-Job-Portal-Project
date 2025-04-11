@@ -13,7 +13,6 @@ class JobsController extends Controller
     {
         $categories = Category::where('status', '1')->get();
         $jobTypes = JobType::where('status', '1')->get();
-
         //! Here Goes Queries
         $jobs = Job::where('status', 1);
         // search using keyword
@@ -33,9 +32,15 @@ class JobsController extends Controller
         }
         //search using jobType
         if (!empty($request->jobType)) {
-           $jobTypeArray = explode(',', $request->jobType);
+            $jobTypeArray = explode(',', $request->jobType);
             $jobs = $jobs->whereIn('job_type_id', $jobTypeArray);
         }
+        //exp
+        if (!empty($request->experience)) {
+            $jobs = $jobs->where('experience', $request->experience);
+        }
+
+
 
         $jobs = $jobs->with('jobType')->orderBy('created_at', 'DESC')->paginate(9);
 
