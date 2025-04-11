@@ -76,3 +76,10 @@ use Illuminate\Pagination\Paginator;
 
                 ye plus dono arrays ko merge krta hai
                 
+
+
+
+ <p>{{ Str::words($featuredJob->description, '10') }}</p>
+
+Str ko captial likho
+ in blade files pury description se numbers of words ko show karana hotoh
