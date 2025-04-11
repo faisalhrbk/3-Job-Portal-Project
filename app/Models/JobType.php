@@ -9,4 +9,12 @@ class JobType extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+
+    //todo Scopes
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
 }
