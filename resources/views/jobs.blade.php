@@ -19,15 +19,16 @@
 
             <div class="row pt-5">
                 <div class="col-md-4 col-lg-3 sidebar mb-4">
+                    <form action="" name="searchForm" id="searchForm">
                     <div class="card border-0 p-4 shadow">
                         <div class="mb-4">
                             <h2>Keywords</h2>
-                            <input type="text" placeholder="Keywords" class="form-control">
+                            <input type="text" name="keyword" id="keyword" placeholder="Keywords" class="form-control">
                         </div>
 
                         <div class="mb-4">
                             <h2>Location</h2>
-                            <input type="text" placeholder="Location" class="form-control">
+                            <input type="text" name="location" id="location" placeholder="Location" class="form-control">
                         </div>
 
                         <div class="mb-4">
@@ -57,7 +58,7 @@
 
                         <div class="mb-4">
                             <h2>Experience</h2>
-                            <select name="category" id="category" class="form-control">
+                            <select name="experience" id="experience" class="form-control">
                                 <option value="">Select Experience</option>
                                 <option value="">1 Year</option>
                                 <option value="">2 Years</option>
@@ -73,6 +74,7 @@
                             </select>
                         </div>
                     </div>
+                    </form>
                 </div>
                 <div class="col-md-8 col-lg-9">
                     <div class="job_listing_area">

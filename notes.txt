@@ -88,3 +88,11 @@ Str ko captial likho
 
  till now everything is fixed
  now ill show jobs page and apply filters this will be fun
+
+ done
+
+
+ composer require barryvdh/laravel-debugbar --dev  
+
+ installed this package rn now don't know what to do with this
+ 

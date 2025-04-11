@@ -9,14 +9,22 @@ use Illuminate\Http\Request;
 
 class JobsController extends Controller
 {
-    // ye jobs page dekhyega
-    function index()
+    function index(Request $request)
     {
-
         $categories = Category::where('status', '1')->get();
         $jobTypes = JobType::where('status', '1')->get();
-        $jobs= Job::where('status', 1)->with('jobType')->orderBy('created_at', 'DESC')->paginate(9);
 
-        return view('jobs' , compact('categories', 'jobTypes', 'jobs'));
+        //! Here Goes Queries
+        $jobs = Job::where('status', 1);
+        // search using keyword
+        if (!empty($request->keyword)) {
+            $jobs = $jobs->where(function ($query) use ($request) {
+                $query->orWhere('title', 'like', '%' . $request->keyword . '%');
+                $query->orWhere('keyWords', 'like', '%' . $request->keyword . '%');
+            });
+        }
+        $jobs = $jobs->with('jobType')->orderBy('created_at', 'DESC')->paginate(9);
+
+        return view('jobs', compact('categories', 'jobTypes', 'jobs'));
     }
 }
