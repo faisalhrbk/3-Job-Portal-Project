@@ -83,3 +83,8 @@ use Illuminate\Pagination\Paginator;
 
 Str ko captial likho
  in blade files pury description se numbers of words ko show karana hotoh
+
+
+
+ till now everything is fixed
+ now ill show jobs page and apply filters this will be fun

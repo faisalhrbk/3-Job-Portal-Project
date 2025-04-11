@@ -2,10 +2,16 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobsController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
+});
+
+//todo jobs controller
+Route::controller(JobsController::class)->group(function () {
+    Route::get('/jobs', 'index')->name('jobs');
 });
 
 //todo Guest Routes
@@ -15,8 +21,6 @@ Route::middleware('redirectIfAuthenticated')->controller(AccountController::clas
     Route::get('account/login', 'login')->name('login');
     Route::post('account/login', 'loginPost')->name('login.post');
 });
-
-
 
 //todo User Authenticated Routes
 Route::prefix('account')->middleware('authUser')
