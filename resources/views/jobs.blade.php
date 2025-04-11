@@ -111,6 +111,7 @@
                             </div>
 
                             <button class="btn btn-primary" type="submit">Search</button>
+                              <a href="{{ route('jobs') }}" class="btn mt-3 btn-warning" type="submit">Reset</a>
                         </div>
                     </form>
                 </div>
