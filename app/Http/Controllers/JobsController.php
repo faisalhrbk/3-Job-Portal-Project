@@ -31,6 +31,7 @@ class JobsController extends Controller
             $jobs = $jobs->where('category_id', $request->category);
         }
         //search using jobType
+        $jobTypeArray = [];
         if (!empty($request->jobType)) {
             $jobTypeArray = explode(',', $request->jobType);
             $jobs = $jobs->whereIn('job_type_id', $jobTypeArray);
@@ -44,6 +45,6 @@ class JobsController extends Controller
 
         $jobs = $jobs->with('jobType')->orderBy('created_at', 'DESC')->paginate(9)->onEachSide(1);
 
-        return view('jobs', compact('categories', 'jobTypes', 'jobs'));
+        return view('jobs', compact('categories', 'jobTypes', 'jobs', 'jobTypeArray'));
     }
 }

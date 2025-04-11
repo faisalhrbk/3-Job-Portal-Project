@@ -52,7 +52,7 @@
                                     @foreach ($jobTypes as $jobType)
                                         <div class="form-check mb-2">
                                             <input class="form-check-input" name="job_type" type="checkbox"
-                                                value="{{ $jobType->id }}" id="{{ $jobType->id }}">
+                                                value="{{ $jobType->id }}" id="{{ $jobType->id }}" {{ in_array($jobType->id, $jobTypeArray) ? 'checked' : '' }}>
                                             <label class="form-check-label"
                                                 for="{{ $jobType->id }}">{{ $jobType->name }}</label>
                                         </div>
@@ -175,9 +175,7 @@
             let location = $('#location').val();
             let category = $('#category').val();
             let experience = $('#experience').val();
-            $('input:checkbox[name = "job_type"]:checked').map(()->{
-                return $(this).val();
-            });
+            let checkedJobTypes = $('input[name="job_type"]:checked').get().map(v => v.value);
 
             if (keyword != '') {
                 url += '&keyword=' + keyword;
@@ -191,8 +189,11 @@
             if (experience != '') {
                 url += '&experience=' + experience;
             }
-            window.location.href = url;
-
+          
+            if (checkedJobTypes.length > 0) {
+                url += '&jobType=' + checkedJobTypes;
+            }
+              window.location.href = url;
         });
     </script>
 @endsection

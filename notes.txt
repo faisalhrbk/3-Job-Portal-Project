@@ -113,3 +113,19 @@ Str ko captial likho
         } 
 
         this is an importana query
+
+
+
+
+        in_array imp 
+        first paramater mai wo bejtha jsko mujhe search krna hai 2nd paramter kay array mai;  agr milta hai toh true return arega
+
+        $colors = ['red', 'green', 'blue'];
+$search = 'green';
+
+if (in_array($search, $colors)) {
+    echo "Mil gaya!";
+} else {
+    echo "Nahi mila!";
+}
+// Output: "Mil gaya!"
