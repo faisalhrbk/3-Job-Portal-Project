@@ -2,6 +2,8 @@
 
 @section('main')
 
+    <section class="section-5 bg-2">
+
         <div class="container py-5">
             <div class="row">
                 <div class="col">
@@ -78,9 +80,6 @@
                                                                         onclick="deleteJob({{ $job->id }})"><i
                                                                             class="fa fa-trash" aria-hidden="true"></i>
                                                                         Delete</a></li>
-                                                                        <!-- Delete Confirmation Modal -->
-
-
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -117,9 +116,19 @@
 
 @section('customJs')
     <script>
-        function deleteJob() {
-            if (confirm('Are You Sure You want to Delete!')) {
-
+        function deleteJob(jobId) {
+            if (confirm('Are you Sure You want to Delete!!')) {
+                $.ajax({
+                    url: '{{ route('account.deleteJob') }}',
+                    type: 'post',
+                    data: {
+                        jobId: jobId
+                    },
+                    dataType: 'json',
+                    success: (response) => {
+                        window.location.href = '{{ route('account.myJobs') }}'
+                    }
+                });
             }
         }
     </script>
