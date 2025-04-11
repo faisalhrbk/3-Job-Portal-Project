@@ -11,8 +11,8 @@
                     <div class="align-end">
                         <select name="sort" id="sort" class="form-select">
                             <option value="" selected disabled>Sort by Date</option>
-                            <option value="latest">Latest</option>
-                            <option value="oldest">Oldest</option>
+                            <option value="latest" {{ (Request::get('sort') == 'latest') ? 'selected' : '' }}>Latest</option>
+                            <option {{ (Request::get('sort') == 'oldest') ? 'selected' : '' }} value="oldest">Oldest</option>
                         </select>
                     </div>
                 </div>
@@ -169,81 +169,78 @@
 
 @section('customJs')
     <script>
+        // $('#searchForm').submit(function(event) {
+        //     event.preventDefault();
+        //     // let url = '{{ route('jobs') }}?';
+
+        //     //     let keyword = $('#keyword').val();
+        //     //     let location = $('#location').val();
+        //     //     let category = $('#category').val();
+        //     //     let experience = $('#experience').val();
+        //     //     let checkedJobTypes = $('input[name="job_type"]:checked').get().map(v => v.value);
+        //     //     let sort = $('#sort').val();
+
+        //     //     if (keyword) {
+        //     //         url += '&keyword=' + keyword;
+        //     //     }
+        //     //     if (location) {
+        //     //         url += '&location=' + location;
+        //     //     }
+        //     //     if (category) {
+        //     //         url += '&category=' + category;
+        //     //     }
+        //     //     if (experience) {
+        //     //         url += '&experience=' + experience;
+        //     //     }
+
+        //     //     if (checkedJobTypes.length > 0) {
+        //     //         url += '&jobType=' + checkedJobTypes;
+        //     //     }
+        //     //     if (sort) {
+        //     //         url += '&sort=' + sort;
+        //     //     }
+        //     //     window.location.href = url;
+        //     // });
+        //     // $('#sort').change(function() {
+        //     //     $("#searchForm").submit();
+        // });
+
         $('#searchForm').submit(function(event) {
             event.preventDefault();
-            // let url = '{{ route('jobs') }}?';
 
-            //     let keyword = $('#keyword').val();
-            //     let location = $('#location').val();
-            //     let category = $('#category').val();
-            //     let experience = $('#experience').val();
-            //     let checkedJobTypes = $('input[name="job_type"]:checked').get().map(v => v.value);
-            //     let sort = $('#sort').val();
+            const params = new URLSearchParams();
+            const filters = {
+                keyword: $('#keyword').val().trim(),
+                location: $('#location').val().trim(),
+                category: $('#category').val(),
+                experience: $('#experience').val(),
+                jobType: $('input[name="job_type"]:checked').map((i, el) => el.value).get(),
+                sort: $('#sort').val()
+            };
 
-            //     if (keyword) {
-            //         url += '&keyword=' + keyword;
-            //     }
-            //     if (location) {
-            //         url += '&location=' + location;
-            //     }
-            //     if (category) {
-            //         url += '&category=' + category;
-            //     }
-            //     if (experience) {
-            //         url += '&experience=' + experience;
-            //     }
+            Object.entries(filters).forEach(([key, value]) => {
+                if (value &&
+                    (Array.isArray(value) ? value.length > 0 : true) &&
+                    value !== 'null' &&
+                    value !== 'undefined') {
+                    params.append(key, Array.isArray(value) ? value.join(',') : value);
+                }
+            });
 
-            //     if (checkedJobTypes.length > 0) {
-            //         url += '&jobType=' + checkedJobTypes;
-            //     }
-            //     if (sort) {
-            //         url += '&sort=' + sort;
-            //     }
-            //     window.location.href = url;
-            // });
-            // $('#sort').change(function() {
-            //     $("#searchForm").submit();
-        });
-    // Form submission handler
-    $('#searchForm').submit(function(event) {
-        event.preventDefault();
-        
-        const params = new URLSearchParams();
-        const filters = {
-            keyword: $('#keyword').val().trim(),
-            location: $('#location').val().trim(),
-            category: $('#category').val(),
-            experience: $('#experience').val(),
-            jobType: $('input[name="job_type"]:checked').map((i, el) => el.value).get(),
-            sort: $('#sort').val()
-        };
+            let finalUrl = '{{ route('jobs') }}';
+            const queryString = params.toString();
 
-        // Add only non-empty filters
-        Object.entries(filters).forEach(([key, value]) => {
-            if (value && 
-                (Array.isArray(value) ? value.length > 0 : true) && 
-                value !== 'null' && 
-                value !== 'undefined') {
-                params.append(key, Array.isArray(value) ? value.join(',') : value);
+            // Add ? only if parameters exist
+            if (queryString) {
+                finalUrl += '?' + queryString;
             }
+
+            window.location.href = finalUrl;
         });
 
-        // Build final URL
-        let finalUrl = '{{ route("jobs") }}';
-        const queryString = params.toString();
-        
-        // Add ? only if parameters exist
-        if (queryString) {
-            finalUrl += '?' + queryString;
-        }
-
-        window.location.href = finalUrl;
-    });
-
-    // Sort change handler
-    $('#sort').change(function() {
-        $('#searchForm').submit();
-    });
-
+        // Sort change handler
+        $('#sort').change(function() {
+            $('#searchForm').submit();
+        });
     </script>
 @endsection
