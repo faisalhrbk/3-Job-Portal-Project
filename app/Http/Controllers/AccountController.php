@@ -219,6 +219,13 @@ class AccountController extends Controller
     {
         $jobTypes = JobType::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->where('status', 1)->get();
+        $job = Job::where([
+            'user_id' => Auth::user()->id,
+            'id' => $id,
+        ])->get();
+        if($job == null){
+            abort(404);
+        }
         return view('account.job.edit', compact('categories', 'jobTypes'));
     }
     function logout()
