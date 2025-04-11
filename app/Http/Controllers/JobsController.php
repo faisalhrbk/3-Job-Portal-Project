@@ -40,10 +40,18 @@ class JobsController extends Controller
         if (!empty($request->experience)) {
             $jobs = $jobs->where('experience', $request->experience);
         }
+        //for dat query
 
 
 
-        $jobs = $jobs->with('jobType')->orderBy('created_at', 'DESC')->paginate(9)->onEachSide(1);
+        $jobs = $jobs->with(['jobType', 'category']);
+
+        //for sorting jobs by date
+        $jobs = $jobs->orderBy(
+            'created_at',
+            $request->sort == 'oldest' ? 'ASC' : 'DESC'
+        );
+        $jobs = $jobs->paginate(9)->onEachSide(1);
 
         return view('jobs', compact('categories', 'jobTypes', 'jobs', 'jobTypeArray'));
     }

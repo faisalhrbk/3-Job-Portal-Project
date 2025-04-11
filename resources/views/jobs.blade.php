@@ -9,9 +9,10 @@
                 </div>
                 <div class="col-6 col-md-2">
                     <div class="align-end">
-                        <select name="sort" id="sort" class="form-control">
-                            <option value="">Latest</option>
-                            <option value="">Oldest</option>
+                        <select name="sort" id="sort" class="form-select">
+                            <option value="" selected disabled>Sort by Date</option>
+                            <option value="latest">Latest</option>
+                            <option value="oldest">Oldest</option>
                         </select>
                     </div>
                 </div>
@@ -35,8 +36,8 @@
 
                             <div class="mb-4">
                                 <h2>Category</h2>
-                                <select name="category" id="category" class="form-control">
-                                    <option value="">Select Category</option>
+                                <select name="category" id="category" class="form-select">
+                                    <option value="" selected disabled>Select Category</option>
                                     @if ($categories)
                                         @foreach ($categories as $category)
                                             <option {{ Request::get('category') == $category->id ? 'selected' : '' }}
@@ -52,7 +53,8 @@
                                     @foreach ($jobTypes as $jobType)
                                         <div class="form-check mb-2">
                                             <input class="form-check-input" name="job_type" type="checkbox"
-                                                value="{{ $jobType->id }}" id="{{ $jobType->id }}" {{ in_array($jobType->id, $jobTypeArray) ? 'checked' : '' }}>
+                                                value="{{ $jobType->id }}" id="{{ $jobType->id }}"
+                                                {{ in_array($jobType->id, $jobTypeArray) ? 'checked' : '' }}>
                                             <label class="form-check-label"
                                                 for="{{ $jobType->id }}">{{ $jobType->name }}</label>
                                         </div>
@@ -96,7 +98,7 @@
                                 @endphp
 
                                 <select name="experience" id="experience" class="form-select mb-3">
-                                    <option value="">Select Experience</option>
+                                    <option value="" selected disabled>Select Experience</option>
                                     @foreach ($experiences as $key => $label)
                                         <option value="{{ $key }}"
                                             {{ Request::get('experience') == $key ? 'selected' : '' }}>
@@ -169,31 +171,79 @@
     <script>
         $('#searchForm').submit(function(event) {
             event.preventDefault();
-            let url = '{{ route('jobs') }}?';
+            // let url = '{{ route('jobs') }}?';
 
-            let keyword = $('#keyword').val();
-            let location = $('#location').val();
-            let category = $('#category').val();
-            let experience = $('#experience').val();
-            let checkedJobTypes = $('input[name="job_type"]:checked').get().map(v => v.value);
+            //     let keyword = $('#keyword').val();
+            //     let location = $('#location').val();
+            //     let category = $('#category').val();
+            //     let experience = $('#experience').val();
+            //     let checkedJobTypes = $('input[name="job_type"]:checked').get().map(v => v.value);
+            //     let sort = $('#sort').val();
 
-            if (keyword != '') {
-                url += '&keyword=' + keyword;
-            }
-            if (location != '') {
-                url += '&location=' + location;
-            }
-            if (category != '') {
-                url += '&category=' + category;
-            }
-            if (experience != '') {
-                url += '&experience=' + experience;
-            }
-          
-            if (checkedJobTypes.length > 0) {
-                url += '&jobType=' + checkedJobTypes;
-            }
-              window.location.href = url;
+            //     if (keyword) {
+            //         url += '&keyword=' + keyword;
+            //     }
+            //     if (location) {
+            //         url += '&location=' + location;
+            //     }
+            //     if (category) {
+            //         url += '&category=' + category;
+            //     }
+            //     if (experience) {
+            //         url += '&experience=' + experience;
+            //     }
+
+            //     if (checkedJobTypes.length > 0) {
+            //         url += '&jobType=' + checkedJobTypes;
+            //     }
+            //     if (sort) {
+            //         url += '&sort=' + sort;
+            //     }
+            //     window.location.href = url;
+            // });
+            // $('#sort').change(function() {
+            //     $("#searchForm").submit();
         });
+    // Form submission handler
+    $('#searchForm').submit(function(event) {
+        event.preventDefault();
+        
+        const params = new URLSearchParams();
+        const filters = {
+            keyword: $('#keyword').val().trim(),
+            location: $('#location').val().trim(),
+            category: $('#category').val(),
+            experience: $('#experience').val(),
+            jobType: $('input[name="job_type"]:checked').map((i, el) => el.value).get(),
+            sort: $('#sort').val()
+        };
+
+        // Add only non-empty filters
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value && 
+                (Array.isArray(value) ? value.length > 0 : true) && 
+                value !== 'null' && 
+                value !== 'undefined') {
+                params.append(key, Array.isArray(value) ? value.join(',') : value);
+            }
+        });
+
+        // Build final URL
+        let finalUrl = '{{ route("jobs") }}';
+        const queryString = params.toString();
+        
+        // Add ? only if parameters exist
+        if (queryString) {
+            finalUrl += '?' + queryString;
+        }
+
+        window.location.href = finalUrl;
+    });
+
+    // Sort change handler
+    $('#sort').change(function() {
+        $('#searchForm').submit();
+    });
+
     </script>
 @endsection
