@@ -162,7 +162,7 @@ class AccountController extends Controller
     }
 
 
-    function createJobPost(Request $request)
+    function saveJob(Request $request)
     {
         $rules = [
             'title' => 'required|string|min:10|max:200',
@@ -223,11 +223,57 @@ class AccountController extends Controller
             'user_id' => Auth::user()->id,
             'id' => $id,
         ])->first();
-        if($job == null){
+        if ($job == null) {
             abort(404);
         }
         return view('account.job.edit', compact('categories', 'jobTypes', 'job'));
     }
+
+
+    function updateJob(Request $request, $jobId)
+    {
+        $rules = [
+            'title' => 'required|string|min:10|max:200',
+            'category' => 'required',
+            'jobType' => 'required',
+            'vacancy' => 'required|integer',
+            'location' => 'required|max:50',
+            'description' => 'required',
+            'company_name' => 'required|min:3|max:50',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->passes()) {
+            $job = Job::findorfail($jobId);
+            $job->title = $request->title;
+            $job->category_id = $request->category;
+            $job->job_type_id = $request->jobType;
+            $job->user_id = Auth::user()->id;
+            $job->vacancy = $request->vacancy;
+            $job->salary = $request->salary;
+            $job->location = $request->location;
+            $job->description = $request->description;
+            $job->responsibility = $request->responsibility;
+            $job->qualifications = $request->qualifications;
+            $job->keywords = $request->keywords;
+            $job->experience = $request->experience;
+            $job->company_name = $request->company_name;
+            $job->company_location = $request->company_location;
+            $job->company_website = $request->company_website;
+            $job->save();
+            session()->flash('success', 'Job Added Successfully');
+            return response()->json([
+                'status' => true,
+                'errors' => [],
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ]);
+        }
+    }
+
+
     function logout()
     {
         Auth::logout();

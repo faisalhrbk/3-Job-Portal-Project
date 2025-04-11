@@ -137,8 +137,8 @@
 
                                 <div class="mb-4">
                                     <label for="" class="mb-2">Keywords</label>
-                                    <input type="text" value="{{ $job->keywords }}" placeholder="keywords" id="keywords" name="keywords"
-                                        class="form-control">
+                                    <input type="text" value="{{ $job->keywords }}" placeholder="keywords"
+                                        id="keywords" name="keywords" class="form-control">
                                 </div>
 
                                 <h3 class="fs-4 border-top mb-1 mt-5 pt-5">Company Details</h3>
@@ -146,22 +146,23 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <label for="" class="mb-2">Name<span class="req">*</span></label>
-                                        <input type="text" {{ $job->company_name }} placeholder="Company Name" id="company_name"
-                                            name="company_name" class="form-control">
+                                        <input type="text" value="{{ $job->company_name }}"
+                                            placeholder="Company Name" id="company_name" name="company_name"
+                                            class="form-control">
                                         <p></p>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="" class="mb-2">Location</label>
-                                        <input {{ $job->company_location }} type="text" placeholder="Location" id="location"
-                                            name="company_location" class="form-control">
+                                        <input {{ $job->company_location }} type="text" placeholder="Location"
+                                            id="location" name="company_location" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="" class="mb-2">Website</label>
-                                    <input type="text" {{ $job->company_website }}  placeholder="Website" id="website" name="company_website"
-                                        class="form-control">
+                                    <input type="text" {{ $job->company_website }} placeholder="Website"
+                                        id="website" name="company_website" class="form-control">
                                 </div>
                             </div>
                             <div class="card-footer p-4">
@@ -179,21 +180,18 @@
     <script>
         $("#editJobForm").submit(function(event) {
             event.preventDefault();
-            let form = $('#editJobForm ')[0]; // form DOM object
-            let formData = new FormData(form);
 
-
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
+            $('button[type="submit"]').prop('disabled', true);
 
 
             $.ajax({
-                'url': "{{ route('account.updateJobPost') }}",
+                'url': '{{ route('account.updateJob', $job->id) }}',
                 'type': 'post',
                 'dataType': 'json',
                 'data': $("#editJobForm").serializeArray(),
                 'success': function(response) {
+
+                    $('button[type="submit"]').prop('disabled', false);
                     if (response.status == true) {
                         $("#title").removeClass('is-invalid').siblings('p').removeClass(
                             'invalid-feedback').html('');

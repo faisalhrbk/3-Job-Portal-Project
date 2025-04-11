@@ -68,3 +68,11 @@ use Illuminate\Pagination\Paginator;
     {
         Paginator::useBootstrapFive();
     }
+
+
+
+      'company_website'
+                ]) + ['user_id' => Auth::id()]);
+
+                ye plus dono arrays ko merge krta hai
+                

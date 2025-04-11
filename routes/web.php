@@ -27,7 +27,8 @@ Route::prefix('account')->middleware('authUser')
         Route::get('logout', 'logout')->name('logout');
         Route::post('update/profile-pic', 'updateProfilePic')->name('update.profilePic');
         Route::get('create-job', 'createJob')->name('createJob');
-        Route::post('create-job', 'createJobPost')->name('createJobPost');
+        Route::post('create-job', 'saveJob')->name('createJobPost');
         Route::get('my-jobs', 'myJobs')->name('myJobs');
         Route::get('edit-job/{id}', 'editJob')->name('editJob');
+        Route::post('update-job/{id}', 'updateJob')->name('updateJob');
     });
