@@ -39,7 +39,8 @@
                                     <option value="">Select Category</option>
                                     @if ($categories)
                                         @foreach ($categories as $category)
-                                            <option {{ (Request::get('category') == $category->id ? 'selected' : '') }} value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option {{ Request::get('category') == $category->id ? 'selected' : '' }}
+                                                value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -59,7 +60,7 @@
                                 @endif
                             </div>
 
-                            <div class="mb-4">
+                            {{-- <div class="mb-4">
                                 <h2>Experience</h2>
                                 <select name="experience" id="experience" class="form-control">
                                     <option value="">Select Experience</option>
@@ -75,7 +76,38 @@
                                     <option value="">10 Years</option>
                                     <option value="">10+ Years</option>
                                 </select>
+                            </div> --}}
+                            <div class="mb-4">
+                                <label for="" class="mb-2">Experience <span class="req">*</span></label>
+                                @php
+                                    $experiences = [
+                                        1 => '1 Year',
+                                        2 => '2 Years',
+                                        3 => '3 Years',
+                                        4 => '4 Years',
+                                        5 => '5 Years',
+                                        6 => '6 Years',
+                                        7 => '7 Years',
+                                        8 => '8 Years',
+                                        9 => '9 Years',
+                                        10 => '10 Years',
+                                        '10_plus' => '10+ Years',
+                                    ];
+                                @endphp
+
+                                <select name="experience" id="experience" class="form-select mb-3">
+                                    <option value="">Select Experience</option>
+                                    @foreach ($experiences as $key => $label)
+                                        <option value="{{ $key }}"
+                                            {{ Request::get('experience') == $key ? 'selected' : '' }}>
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <p></p>
                             </div>
+
                             <button class="btn btn-primary" type="submit">Search</button>
                         </div>
                     </form>
@@ -98,8 +130,8 @@
                                                             <span class="ps-1">{{ $job->location }}</span>
                                                         </p>
                                                         <p>{{ $job->category->name }}</p>
-                                                         <p>{{ $job->experience }}</p>
-                                                        
+                                                        <p>{{ $job->experience }}</p>
+
                                                         <p class="mb-0">
                                                             <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
                                                             <span class="ps-1">{{ $job->jobType->name }}</span>
@@ -142,7 +174,10 @@
             let keyword = $('#keyword').val();
             let location = $('#location').val();
             let category = $('#category').val();
-                  let experience = $('#experience').val();
+            let experience = $('#experience').val();
+            $('input:checkbox[name = "job_type"]:checked').map(()->{
+                return $(this).val();
+            });
 
             if (keyword != '') {
                 url += '&keyword=' + keyword;
@@ -153,7 +188,7 @@
             if (category != '') {
                 url += '&category=' + category;
             }
-              if (experience != '') {
+            if (experience != '') {
                 url += '&experience=' + experience;
             }
             window.location.href = url;
