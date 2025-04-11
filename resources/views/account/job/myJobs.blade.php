@@ -2,8 +2,6 @@
 
 @section('main')
 
-    <section class="section-5 bg-2">
-
         <div class="container py-5">
             <div class="row">
                 <div class="col">
@@ -72,12 +70,17 @@
                                                                 <li><a class="dropdown-item" href="job-detail.html"> <i
                                                                             class="fa fa-eye" aria-hidden="true"></i>
                                                                         View</a></li>
-                                                                <li><a class="dropdown-item" href="{{ route('account.editJob', $job->id) }}"><i
+                                                                <li><a class="dropdown-item"
+                                                                        href="{{ route('account.editJob', $job->id) }}"><i
                                                                             class="fa fa-edit" aria-hidden="true"></i>
                                                                         Edit</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i
+                                                                <li><a class="dropdown-item" href="#"
+                                                                        onclick="deleteJob({{ $job->id }})"><i
                                                                             class="fa fa-trash" aria-hidden="true"></i>
-                                                                        Remove</a></li>
+                                                                        Delete</a></li>
+                                                                        <!-- Delete Confirmation Modal -->
+
+
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -97,12 +100,12 @@
                                 .pagination {
                                     font-size: 0.75rem;
                                 }
-                                    /* {{-- <div class="d-flex justify-content-center mt-2">
+
+                                /* {{-- <div class="d-flex justify-content-center mt-2">
                                 {{ $jobs->links('pagination::bootstrap-5') }}
 
                             </div> --}} */
                             </style>
-                        
 
                             {{ $jobs->links() }}
                         </div>
@@ -113,4 +116,11 @@
 @endsection
 
 @section('customJs')
+    <script>
+        function deleteJob() {
+            if (confirm('Are You Sure You want to Delete!')) {
+
+            }
+        }
+    </script>
 @endsection

@@ -274,6 +274,10 @@ class AccountController extends Controller
     }
 
 
+    function deleteJob($jobId){
+     
+    }
+
     function logout()
     {
         Auth::logout();
