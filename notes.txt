@@ -95,4 +95,21 @@ Str ko captial likho
  composer require barryvdh/laravel-debugbar --dev  
 
  installed this package rn now don't know what to do with this
- 
+
+
+
+ !imp
+
+
+ orwhere query functgion kay andr likhne hai
+
+
+
+
+   //search using jobType
+        if (!empty($request->jobType)) {
+           $jobTypeArray = explode(',', $request->jobType);
+            $jobs = $jobs->whereIn('job_type_id', $jobTypeArray);
+        } 
+
+        this is an importana query
