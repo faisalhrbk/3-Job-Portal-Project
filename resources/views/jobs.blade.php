@@ -23,14 +23,14 @@
                         <div class="card border-0 p-4 shadow">
                             <div class="mb-4">
                                 <h2>Keywords</h2>
-                                <input type="text" value="{{ Request::get('keyword') }}" name="keyword" id="keyword" placeholder="Keywords"
-                                    class="form-control">
+                                <input type="text" value="{{ Request::get('keyword') }}" name="keyword" id="keyword"
+                                    placeholder="Keywords" class="form-control">
                             </div>
 
                             <div class="mb-4">
                                 <h2>Location</h2>
-                                <input type="text" name="location" id="location" placeholder="Location"
-                                    class="form-control">
+                                <input type="text" value="{{ Request::get('location') }}" name="location" id="location"
+                                    placeholder="Location" class="form-control">
                             </div>
 
                             <div class="mb-4">
@@ -39,7 +39,7 @@
                                     <option value="">Select Category</option>
                                     @if ($categories)
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option {{ (Request::get('category') == $category->id ? 'selected' : '') }} value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -83,19 +83,23 @@
                 <div class="col-md-8 col-lg-9">
                     <div class="job_listing_area">
                         <div class="job_lists">
-                            <div class="row">
+                            <div class="row row-cols-1 row-cols-md-3 g-4">
                                 @if ($jobs->isNotEmpty())
                                     @foreach ($jobs as $job)
-                                        <div class="col-md-4">
-                                            <div class="card mb-4 border-0 p-3 shadow">
-                                                <div class="card-body">
+                                        <div class="col">
+                                            <div class="card h-100 mb-4 border-0 p-3 shadow">
+                                                <div class="card-body d-flex flex-column">
                                                     <h3 class="fs-5 mb-0 border-0 pb-2">{{ $job->title }}</h3>
-                                                    <p>{{ Str::words($job->description, $words = 10, '.....') }}</p>
+                                                    <p class="flex-grow-1">
+                                                        {{ Str::words($job->description, $words = 10, '.....') }}</p>
                                                     <div class="bg-light border p-3">
                                                         <p class="mb-0">
                                                             <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
                                                             <span class="ps-1">{{ $job->location }}</span>
                                                         </p>
+                                                        <p>{{ $job->category->name }}</p>
+                                                         <p>{{ $job->experience }}</p>
+                                                        
                                                         <p class="mb-0">
                                                             <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
                                                             <span class="ps-1">{{ $job->jobType->name }}</span>
@@ -106,7 +110,6 @@
                                                                 <span class="ps-1">{{ $job->salary }}</span>
                                                             </p>
                                                         @endif
-
                                                     </div>
 
                                                     <div class="d-grid mt-3">
@@ -122,6 +125,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mt-3"> {{ $jobs->links() }}</div>
                 </div>
 
             </div>
@@ -133,14 +137,26 @@
     <script>
         $('#searchForm').submit(function(event) {
             event.preventDefault();
-            let = url = '{{ route("jobs") }}?';
+            let url = '{{ route('jobs') }}?';
 
             let keyword = $('#keyword').val();
-            if (keyword != '') {
-                url += 'keyword=' + keyword;
+            let location = $('#location').val();
+            let category = $('#category').val();
+                  let experience = $('#experience').val();
 
+            if (keyword != '') {
+                url += '&keyword=' + keyword;
             }
-            window.location.href=url;
+            if (location != '') {
+                url += '&location=' + location;
+            }
+            if (category != '') {
+                url += '&category=' + category;
+            }
+              if (experience != '') {
+                url += '&experience=' + experience;
+            }
+            window.location.href = url;
 
         });
     </script>

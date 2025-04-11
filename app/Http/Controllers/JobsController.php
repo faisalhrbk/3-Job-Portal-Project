@@ -42,7 +42,7 @@ class JobsController extends Controller
 
 
 
-        $jobs = $jobs->with('jobType')->orderBy('created_at', 'DESC')->paginate(9);
+        $jobs = $jobs->with('jobType')->orderBy('created_at', 'DESC')->paginate(9)->onEachSide(1);
 
         return view('jobs', compact('categories', 'jobTypes', 'jobs'));
     }
