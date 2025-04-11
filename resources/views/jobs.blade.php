@@ -34,6 +34,7 @@
                         <div class="mb-4">
                             <h2>Category</h2>
                             <select name="category" id="category" class="form-control">
+                                <option value="">Select Category</option>
                                 @if ($categories)
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>

@@ -23,6 +23,16 @@ class JobsController extends Controller
                 $query->orWhere('keyWords', 'like', '%' . $request->keyword . '%');
             });
         }
+        // search using location
+        if (!empty($request->location)) {
+            $jobs = $jobs->where('location', $request->location);
+        }
+        // search using category
+        if (!empty($request->category)) {
+            $jobs = $jobs->where('category_id', $request->category);
+        }
+        
+
         $jobs = $jobs->with('jobType')->orderBy('created_at', 'DESC')->paginate(9);
 
         return view('jobs', compact('categories', 'jobTypes', 'jobs'));
