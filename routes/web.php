@@ -29,5 +29,5 @@ Route::prefix('account')->middleware('authUser')
         Route::get('create-job', 'createJob')->name('createJob');
         Route::post('create-job', 'createJobPost')->name('createJobPost');
         Route::get('my-jobs', 'myJobs')->name('myJobs');
-    Route::get('edit-job/{id}', 'editJob')->name('editJob');
+        Route::get('edit-job/{id}', 'editJob')->name('editJob');
     });

@@ -222,11 +222,11 @@ class AccountController extends Controller
         $job = Job::where([
             'user_id' => Auth::user()->id,
             'id' => $id,
-        ])->get();
+        ])->first();
         if($job == null){
             abort(404);
         }
-        return view('account.job.edit', compact('categories', 'jobTypes'));
+        return view('account.job.edit', compact('categories', 'jobTypes', 'job'));
     }
     function logout()
     {
