@@ -293,6 +293,7 @@ class AccountController extends Controller
         ]);
     }
 
+    
     function logout()
     {
         Auth::logout();
