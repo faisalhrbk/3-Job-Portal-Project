@@ -294,6 +294,11 @@ class AccountController extends Controller
     }
 
     
+function myJobApplications(){
+    return view('account.myJobApplications');
+}
+
+
     function logout()
     {
         Auth::logout();
