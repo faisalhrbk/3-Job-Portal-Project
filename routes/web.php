@@ -39,4 +39,5 @@ Route::prefix('account')->middleware('authUser')
         Route::get('edit-job/{id}', 'editJob')->name('editJob');
         Route::post('update-job/{id}', 'updateJob')->name('updateJob');
         Route::post('delete-job', 'deleteJob')->name('deleteJob');
+        Route::get('myJobApplications', 'myJobApplications')->name('myJobApplications');
     });

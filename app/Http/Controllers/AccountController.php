@@ -6,6 +6,7 @@ use App\Models\Job;
 use App\Models\User;
 use App\Models\JobType;
 use App\Models\Category;
+use App\Models\JobApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -295,7 +296,8 @@ class AccountController extends Controller
 
     
 function myJobApplications(){
-    return view('account.myJobApplications');
+    $appliedJobs = JobApplication::
+    return view('account.job.myJobApplications');
 }
 
 
