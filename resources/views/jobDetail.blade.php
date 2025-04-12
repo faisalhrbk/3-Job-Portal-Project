@@ -53,7 +53,7 @@
                                 <h4>Responsibility</h4>
                                 @if (!empty($job->responsibility))
                                     {!! nl2br($job->responsibility) !!}
-                                    @else 
+                                @else
                                     <p>null</p>
                                 @endif
 
@@ -62,22 +62,29 @@
                                 <h4>Qualifications</h4>
                                 @if (!empty($job->qualifications))
                                     {!! nl2br($job->qualifications) !!}
-                                      @else 
-                                    <p>null</p> 
+                                @else
+                                    <p>null</p>
                                 @endif
                             </div>
                             <div class="single_wrap">
                                 <h4>Benefits</h4>
                                 @if (!empty($job->benefits))
                                     {!! nl2br($job->benefits) !!}
-                                       @else 
+                                @else
                                     <p>null</p>
                                 @endif
                             </div>
                             <div class="border-bottom"></div>
                             <div class="pt-3 text-end">
                                 <a href="#" class="btn btn-secondary">Save</a>
-                                <a href="#" class="btn btn-primary">Apply</a>
+                                @if (Auth::check())
+                                    <a href="#" class="btn btn-primary"
+                                        onclick="applyJob({{ $job->id }})">Apply</a>
+                                @else
+                                    <a href="{{ route('account.login') }}" class="btn btn-primary disable">Login To
+                                        Apply</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -130,4 +137,19 @@
 @endsection
 
 @section('customJs')
+    <script>
+        function applyJob($jobId) {
+            if (confirm('Are Sure You Want To Apply for This Job')) {
+$.ajax([
+    url: '{{ route("job.apply") }}',
+    type: 'post',
+    data: {id:id},
+    dataType: 'json'
+    success: function(response){
+
+    }
+])
+            }
+        }
+    </script>
 @endsection

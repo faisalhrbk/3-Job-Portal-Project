@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Job;
 use App\Models\JobType;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobsController extends Controller
 {
@@ -61,7 +62,31 @@ class JobsController extends Controller
     function detail($jobId)
     {
         $job = Job::Active($jobId)->with('jobType', 'category')->findorfail($jobId);
-    
         return view('jobDetail', compact('job'));
+    }
+
+
+
+    function apply($jobId)
+    {
+        $job = Job::find($jobId);
+        if (!$job) {
+            session()->flash('error', 'Job does Not Exist');
+            return response()->json([
+                'success' => false,
+                'message' => 'This job is no longer available'
+            ], 404);
+        }
+        //you can not apply on your own job
+        $employer_id = $job->user_id;
+        if ($employer_id == Auth::user()->id) {
+            session()->flash('error', 'You cant apply to your own job!');
+            return response()->json([
+                'success' => false,
+                'message' => 'You cant apply to your own job!'
+            ], 404);
+        }
+
+        
     }
 }

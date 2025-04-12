@@ -13,6 +13,7 @@ Route::controller(HomeController::class)->group(function () {
 Route::controller(JobsController::class)->group(function () {
     Route::get('jobs', 'index')->name('jobs');
     Route::get('job/detail/{id}', 'detail')->name('job.detail');
+    Route::get('job/apply/{id}', 'apply')->name('job.apply');
 
 });
 
