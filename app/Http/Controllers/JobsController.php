@@ -55,4 +55,10 @@ class JobsController extends Controller
                 : []
         ]);
     }
+
+
+
+    function jobDetails($id){
+
+    }
 }

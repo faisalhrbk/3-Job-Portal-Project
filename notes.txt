@@ -167,3 +167,49 @@ params.append("page", "1");
 const url = `https://example.com/search?${params.toString()}`;
 console.log(url); 
 // Output: "https://example.com/search?query=javascript&page=1"
+
+
+-----------------------------------------------------------------------------
+1. Object.entries(filters)
+Converts an object into an array of [key, value] pairs.
+Object.entries(filters) 
+// Returns: 
+// [ ["category", "books"], ["price", "500"], ["author", "JK Rowling"] ]
+
+
+2. .forEach(([key, value]) => { ... })
+Loops through each [key, value] pair.
+
+Destructuring Assignment ([key, value]) extracts the key and value directly.
+
+Instead of writing entry[0] (key) and entry[1] (value), we use [key, value] for cleaner code.
+
+const params = new URLSearchParams();
+
+Object.entries(filters).forEach(([key, value]) => {
+  params.append(key, value); // Adds each filter to URL params
+});
+
+console.log(params.toString());
+// Output: "category=books&price=500&author=JK+Rowling"
+
+
+1. What is Array.isArray(value)?
+Hindi/Urdu Explanation:
+Ye ek JavaScript ka function hai jo check karta hai ki value ek array hai ya nahi.
+
+Agar value array hai (jaise [1, 2, 3]), toh true return karega.
+
+Agar value array nahi hai (jaise string, number, object), toh false return karega.
+
+console.log(Array.isArray([1, 2, 3])); // true (kyuki ye ARRAY hai)  
+console.log(Array.isArray("Hello"));   // false (kyuki ye STRING hai)  
+console.log(Array.isArray({a: 1}));    // false (kyuki ye OBJECT hai)  
+
+
+=====================================================================
+
+(Array.isArray(value) ? value.length > 0 : true)
+Agar value array hai, toh check karo ki wo empty na ho (length > 0).
+
+Agar array nahi hai, toh true chhod do.

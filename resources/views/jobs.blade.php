@@ -132,8 +132,8 @@
                                                             <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
                                                             <span class="ps-1">{{ $job->location }}</span>
                                                         </p>
-                                                        <p>{{ $job->category->name }}</p>
-                                                        <p>{{ $job->experience }}</p>
+                                                        {{-- <p>{{ $job->category->name }}</p>
+                                                        <p>{{ $job->experience }}</p> --}}
 
                                                         <p class="mb-0">
                                                             <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
