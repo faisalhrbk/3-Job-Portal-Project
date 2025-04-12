@@ -16,10 +16,7 @@ class JobNotificationEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(public $mailData) {}
 
     /**
      * Get the message envelope.
@@ -37,7 +34,7 @@ class JobNotificationEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'email.jobNotificationEmail',
         );
     }
 
