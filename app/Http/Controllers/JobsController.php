@@ -68,9 +68,9 @@ class JobsController extends Controller
 
 
 
-    function apply($jobId)
+    function apply(Request $request)
     {
-        $job = Job::find($jobId);
+        $job = Job::find($request->id);
         if (!$job) {
             session()->flash('error', 'Job does Not Exist');
             return response()->json([
@@ -83,23 +83,35 @@ class JobsController extends Controller
         if ($employer_id == Auth::user()->id) {
             session()->flash('error', 'You cant apply to your own job!');
             return response()->json([
-                'success' => false,
+                'status' => false,
                 'message' => 'You cant apply to your own job!'
-            ], 404);
+            ]);
+        }
+        // you can't apply on a job twice
+        $alreadyApplied = JobApplication::where([
+            'user_id' => Auth::user()->id,
+            'job_id' => $job->id,
+        ])->exists();
+        if ($alreadyApplied) {
+            session()->flash('error', 'Already Applied to job');
+            return response()->json([
+                'success' => false,
+                'message' => 'Already Applied to job!'
+            ]);
         }
 
         $application = new JobApplication();
-        $application->job_id = $jobId;
+        $application->job_id = $request->id;
         $application->user_id = Auth::user()->id;
         $application->employer_id = $employer_id;
         $application->applied_date = now();
         $application->save();
         session()->flash('success', 'You  have Successfully Applied to to Job!');
         return response()->json(
-        [
-            'status' => true,
-            'message' => 'you have Successfully Applied to Job!'
-        ]);
+            [
+                'status' => true,
+                'message' => 'you have Successfully Applied to Job!'
+            ]
+        );
     }
-
 }

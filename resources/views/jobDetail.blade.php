@@ -77,10 +77,10 @@
                             </div>
                             <div class="border-bottom"></div>
                             <div class="pt-3 text-end">
-                                <a href="#" class="btn btn-secondary">Save</a>
+                                <a href="" class="btn btn-secondary">Save</a>
                                 @if (Auth::check())
-                                    <a href="#" class="btn btn-primary"
-                                        onclick="applyJob({{ $job->id }})">Apply</a>
+                                    <button type="button"  class="btn btn-primary"
+                                        onclick="applyJob(event,{{ $job->id }})">Apply</button>
                                 @else
                                     <a href="{{ route('account.login', $job->id) }}" class="btn btn-primary disable">Login To
                                         Apply</a>
@@ -139,7 +139,10 @@
 
 @section('customJs')
     <script>
-       function applyJob(jobId) { 
+       function applyJob(event,jobId) { 
+         event.preventDefault();
+         $('button').prop('disabled', true);
+
     if (confirm('Are you sure you want to apply for this job?')) {
         $.ajax({
             url: '{{ route("job.apply") }}',
@@ -152,7 +155,8 @@
                 window.location.reload();
             },
             error: function(xhr) {
-                alert('Error: ' + xhr.responseJSON.message);
+                console.log(errors)
+                alert('Error fuck: ' + xhr.responseJSON.message);
             }
         });
     }
