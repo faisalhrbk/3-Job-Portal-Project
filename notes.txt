@@ -129,3 +129,41 @@ if (in_array($search, $colors)) {
     echo "Nahi mila!";
 }
 // Output: "Mil gaya!"
+
+
+
+
+---------------------------------------------------------------------------
+javascript
+Copy
+// Step 1: Create a new URLSearchParams object
+const params = new URLSearchParams();
+
+// Step 2: Add key-value pairs (like ?name=John&age=25)
+params.append("name", "John");  // Adds "name=John"
+params.append("age", "25");     // Adds "age=25"
+
+// Step 3: Convert to a query string
+console.log(params.toString()); // Output: "name=John&age=25"
+How It Works:
+new URLSearchParams() → Creates an empty object to store parameters.
+
+.append(key, value) → Adds a new parameter.
+
+.toString() → Converts all parameters into a URL-friendly string.
+
+https://example.com/search?query=javascript&page=1
+
+
+
+You can use:
+
+javascript
+Copy
+const params = new URLSearchParams();
+params.append("query", "javascript");
+params.append("page", "1");
+
+const url = `https://example.com/search?${params.toString()}`;
+console.log(url); 
+// Output: "https://example.com/search?query=javascript&page=1"
