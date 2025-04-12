@@ -53,6 +53,8 @@
                                 <h4>Responsibility</h4>
                                 @if (!empty($job->responsibility))
                                     {!! nl2br($job->responsibility) !!}
+                                    @else 
+                                    <p>null</p>
                                 @endif
 
                             </div>
@@ -60,12 +62,16 @@
                                 <h4>Qualifications</h4>
                                 @if (!empty($job->qualifications))
                                     {!! nl2br($job->qualifications) !!}
+                                      @else 
+                                    <p>null</p> 
                                 @endif
                             </div>
                             <div class="single_wrap">
                                 <h4>Benefits</h4>
                                 @if (!empty($job->benefits))
                                     {!! nl2br($job->benefits) !!}
+                                       @else 
+                                    <p>null</p>
                                 @endif
                             </div>
                             <div class="border-bottom"></div>
@@ -105,8 +111,9 @@
                             </div>
                             <div class="job_content pt-3">
                                 <ul>
-                                    <li>Name: <span>{{ $job->company_name }}</span></li>
+
                                     @if (!empty($job->salary))
+                                        <li>Name: <span>{{ $job->company_name }}</span></li>
                                         <li>Location: <span>{{ $job->location }}</span></li>
                                     @endif
                                     @if (!empty($job->company_website))
