@@ -17,20 +17,23 @@
     <section class="section-1 py-5">
         <div class="container">
             <div class="card border-0 p-5 shadow">
+                <form action="" method="GET">
                 <div class="row">
                     <div class="col-md-3 mb-sm-3 mb-lg-0 mb-3">
-                        <input type="text" class="form-control" name="search" id="search" placeholder="Keywords">
+                        <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Keywords">
                     </div>
                     <div class="col-md-3 mb-sm-3 mb-lg-0 mb-3">
-                        <input type="text" class="form-control" name="search" id="search" placeholder="Location">
+                        <input type="text" class="form-control" name="location" id="location" placeholder="Location">
                     </div>
                     <div class="col-md-3 mb-sm-3 mb-lg-0 mb-3">
-                        <select name="category" id="category" class="form-control">
-                            <option value="">Select a Category</option>
-                            <option value="">Engineering</option>
-                            <option value="">Accountant</option>
-                            <option value="">Information Technology</option>
-                            <option value="">Fashion designing</option>
+                        <select name="category" id="category" class="form-select">
+                            <option value="" selected disabled>Select a Category</option>
+                            @if ($newCategories->isNotEmpty())
+                                @foreach ($newCategories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            @endif
+
                         </select>
                     </div>
 
@@ -41,6 +44,7 @@
 
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </section>
@@ -99,7 +103,8 @@
                                                 </div>
 
                                                 <div class="d-grid mt-3">
-                                                    <a href="{{ route('job.detail', $featuredJob->id) }}" class="btn btn-primary btn-lg">Details</a>
+                                                    <a href="{{ route('job.detail', $featuredJob->id) }}"
+                                                        class="btn btn-primary btn-lg">Details</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -115,7 +120,7 @@
     </section>
 
     <section class="section-3 bg-2 py-5">
-       <div class="container">
+        <div class="container">
             <h2>Latest Jobs</h2>
             <div class="row pt-5">
                 <div class="job_listing_area">
@@ -147,7 +152,8 @@
                                                 </div>
 
                                                 <div class="d-grid mt-3">
-                                                    <a href="{{ route('job.detail', $latestJob->id) }}" class="btn btn-primary btn-lg">Details</a>
+                                                    <a href="{{ route('job.detail', $latestJob->id) }}"
+                                                        class="btn btn-primary btn-lg">Details</a>
                                                 </div>
                                             </div>
                                         </div>

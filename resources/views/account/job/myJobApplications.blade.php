@@ -57,7 +57,7 @@
                                                         @if ($jobApplication->job->status == 1)
                                                             <div class="job-status text-capitalize">Active</div>
                                                         @else
-                                                            <div class="job-status text-capitalize">Block</div>
+                                                            null
                                                         @endif
 
                                                     </td>
