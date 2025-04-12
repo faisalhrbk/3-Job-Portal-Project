@@ -297,7 +297,7 @@ class AccountController extends Controller
 
     function myJobApplications()
     {
-        $jobApplications = JobApplication::where('user_id', Auth::user()->id)->with('job', 'job.jobType')->paginate(10);
+        $jobApplications = JobApplication::where('user_id', Auth::user()->id)->with('job', 'job.jobType', 'job.applications')->paginate(10);
 
         return view('account.job.myJobApplications', compact('jobApplications'));
     }
