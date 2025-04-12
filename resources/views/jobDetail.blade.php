@@ -17,6 +17,7 @@
         <div class="job_details_area container">
             <div class="row pb-5">
                 <div class="col-md-8">
+                    @include('message')
                     <div class="card border-0 shadow">
                         <div class="job_details_header">
                             <div class="single_jobs white-bg d-flex justify-content-between">
@@ -81,7 +82,7 @@
                                     <a href="#" class="btn btn-primary"
                                         onclick="applyJob({{ $job->id }})">Apply</a>
                                 @else
-                                    <a href="{{ route('account.login') }}" class="btn btn-primary disable">Login To
+                                    <a href="{{ route('account.login', $job->id) }}" class="btn btn-primary disable">Login To
                                         Apply</a>
                                 @endif
 
@@ -138,18 +139,23 @@
 
 @section('customJs')
     <script>
-        function applyJob($jobId) {
-            if (confirm('Are Sure You Want To Apply for This Job')) {
-$.ajax([
-    url: '{{ route("job.apply") }}',
-    type: 'post',
-    data: {id:id},
-    dataType: 'json'
-    success: function(response){
-
-    }
-])
+       function applyJob(jobId) { 
+    if (confirm('Are you sure you want to apply for this job?')) {
+        $.ajax({
+            url: '{{ route("job.apply") }}',
+            type: 'post',
+            data: { 
+                id: jobId  
+            },
+            dataType: 'json',
+            success: function(response) {
+                window.location.reload();
+            },
+            error: function(xhr) {
+                alert('Error: ' + xhr.responseJSON.message);
             }
-        }
+        });
+    }
+}
     </script>
 @endsection

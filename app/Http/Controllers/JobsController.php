@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\JobType;
 use App\Models\Category;
+use App\Models\JobApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -87,6 +88,18 @@ class JobsController extends Controller
             ], 404);
         }
 
-        
+        $application = new JobApplication();
+        $application->job_id = $jobId;
+        $application->user_id = Auth::user()->id;
+        $application->employer_id = $employer_id;
+        $application->applied_date = now();
+        $application->save();
+        session()->flash('success', 'You  have Successfully Applied to to Job!');
+        return response()->json(
+        [
+            'status' => true,
+            'message' => 'you have Successfully Applied to Job!'
+        ]);
     }
+
 }
