@@ -140,8 +140,8 @@
 @section('customJs')
     <script>
        function applyJob(event,jobId) { 
-         event.preventDefault();
-         $('button').prop('disabled', true);
+        //  event.preventDefault();
+        //  $('button').prop('disabled', true);
 
     if (confirm('Are you sure you want to apply for this job?')) {
         $.ajax({
@@ -153,10 +153,6 @@
             dataType: 'json',
             success: function(response) {
                 window.location.reload();
-            },
-            error: function(xhr) {
-                console.log(errors)
-                alert('Error fuck: ' + xhr.responseJSON.message);
             }
         });
     }

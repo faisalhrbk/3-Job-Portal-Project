@@ -117,7 +117,7 @@ class JobsController extends Controller
             'user' => Auth::user(),
             'job' => $job,
         ];
-        Mail::to()->send(new JobNotificationEmail($employer));
+        Mail::to($employer->email)->send(new JobNotificationEmail($mailData));
 
         session()->flash('success', 'You  have Successfully Applied to to Job!');
         return response()->json(
