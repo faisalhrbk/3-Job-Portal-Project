@@ -294,13 +294,31 @@ class AccountController extends Controller
         ]);
     }
 
-    
-function myJobApplications(){
-    $jobs = JobApplication::where('user_id', Auth::user()->id)->with('job')->get();
 
-    return view('account.job.myJobApplications', compact('jobs'));
-}
+    function myJobApplications()
+    {
+        $jobApplications = JobApplication::where('user_id', Auth::user()->id)->with('job', 'job.jobType')->paginate(10);
 
+        return view('account.job.myJobApplications', compact('jobApplications'));
+    }
+
+    function removeJob(Request $request)
+    {
+        $jobApplication = JobApplication::where(['id' => $request->id, 'user_id' => Auth::id()])->first();
+
+       
+        if ($jobApplication == null) {
+            return response()->json([
+                session()->flash('error', 'job application not found!'),
+                'status' => false,
+            ]);
+        }
+        JobApplication::find($request->id)->delete();
+        return response()->json([
+            session()->flash('success', 'Application removed successfully!'),
+            'status' => true,
+        ]);
+    }
 
     function logout()
     {
