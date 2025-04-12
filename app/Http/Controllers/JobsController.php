@@ -58,7 +58,7 @@ class JobsController extends Controller
 
 
 
-    function jobDetails($id){
+    function detail($id){
 
     }
 }

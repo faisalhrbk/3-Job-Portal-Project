@@ -99,7 +99,7 @@
                                                 </div>
 
                                                 <div class="d-grid mt-3">
-                                                    <a href="job-detail.html" class="btn btn-primary btn-lg">Details</a>
+                                                    <a href="{{ route('job.detail', $featuredJob->id) }}" class="btn btn-primary btn-lg">Details</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,32 +122,32 @@
                     <div class="job_lists">
                         <div class="row">
                             @if ($latestJobs->isNotEmpty())
-                                @foreach ($latestJobs as $latestJobs)
+                                @foreach ($latestJobs as $latestJob)
                                     <div class="col-md-4">
                                         <div class="card mb-4 border-0 p-3 shadow">
                                             <div class="card-body">
-                                                <h3 class="fs-5 mb-0 border-0 pb-2">{{ $latestJobs->title }}</h3>
-                                                <p>{{ Str::words($latestJobs->description, '4') }}</p>
+                                                <h3 class="fs-5 mb-0 border-0 pb-2">{{ $latestJob->title }}</h3>
+                                                <p>{{ Str::words($latestJob->description, '4') }}</p>
                                                 <div class="bg-light border p-3">
                                                     <p class="mb-0">
                                                         <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
-                                                        <span class="ps-1">{{ $latestJobs->location }}</span>
+                                                        <span class="ps-1">{{ $latestJob->location }}</span>
                                                     </p>
                                                     <p class="mb-0">
                                                         <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
-                                                        <span class="ps-1">{{ $latestJobs->jobType->name }}</span>
+                                                        <span class="ps-1">{{ $latestJob->jobType->name }}</span>
                                                     </p>
-                                                    @if (!is_null($latestJobs->salary))
+                                                    @if (!is_null($latestJob->salary))
                                                         <p class="mb-0">
                                                             <span class="fw-bolder"><i class="fa fa-usd"></i></span>
-                                                            <span class="ps-1">{{ $latestJobs->salary }}</span>
+                                                            <span class="ps-1">{{ $latestJob->salary }}</span>
                                                         </p>
                                                     @endif
 
                                                 </div>
 
                                                 <div class="d-grid mt-3">
-                                                    <a href="job-detail.html" class="btn btn-primary btn-lg">Details</a>
+                                                    <a href="{{ route('job.detail', $latestJob->id) }}" class="btn btn-primary btn-lg">Details</a>
                                                 </div>
                                             </div>
                                         </div>

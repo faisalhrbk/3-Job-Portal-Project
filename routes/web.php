@@ -11,7 +11,9 @@ Route::controller(HomeController::class)->group(function () {
 
 //todo jobs controller
 Route::controller(JobsController::class)->group(function () {
-    Route::get('/jobs', 'index')->name('jobs');
+    Route::get('jobs', 'index')->name('jobs');
+    Route::get('job/detail/{id}', 'detail')->name('job.detail');
+
 });
 
 //todo Guest Routes
