@@ -58,7 +58,10 @@ class JobsController extends Controller
 
 
 
-    function detail($id){
-
+    function detail($jobId)
+    {
+        $job = Job::Active($jobId)->with('jobType', 'category')->findorfail($jobId);
+    
+        return view('jobDetail', compact('job'));
     }
 }
