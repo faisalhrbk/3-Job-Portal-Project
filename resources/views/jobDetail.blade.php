@@ -77,12 +77,20 @@
                             </div>
                             <div class="border-bottom"></div>
                             <div class="pt-3 text-end">
-                                <a href="" class="btn btn-secondary">Save</a>
                                 @if (Auth::check())
-                                    <button type="button"  class="btn btn-primary"
+                                    <button type="button" class="btn btn-secondary"
+                                        onclick="saveJob(event,{{ $job->id }})">Apply</button>
+                                @else
+                                    <a href="{{ route('account.login', $job->id) }}" class="btn btn-secondary disable">Login
+                                        To
+                                        Save </a>
+                                @endif
+                                @if (Auth::check())
+                                    <button type="button" class="btn btn-primary"
                                         onclick="applyJob(event,{{ $job->id }})">Apply</button>
                                 @else
-                                    <a href="{{ route('account.login', $job->id) }}" class="btn btn-primary disable">Login To
+                                    <a href="{{ route('account.login', $job->id) }}" class="btn btn-primary disable">Login
+                                        To
                                         Apply</a>
                                 @endif
 
@@ -139,23 +147,40 @@
 
 @section('customJs')
     <script>
-       function applyJob(event,jobId) { 
-        //  event.preventDefault();
-        //  $('button').prop('disabled', true);
+        function applyJob(event, jobId) {
+            //  event.preventDefault();
+            //  $('button').prop('disabled', true);
 
-    if (confirm('Are you sure you want to apply for this job?')) {
-        $.ajax({
-            url: '{{ route("job.apply") }}',
-            type: 'post',
-            data: { 
-                id: jobId  
-            },
-            dataType: 'json',
-            success: function(response) {
-                window.location.reload();
+            if (confirm('Are you sure you want to apply for this job?')) {
+                $.ajax({
+                    url: '{{ route('job.apply') }}',
+                    type: 'post',
+                    data: {
+                        id: jobId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
             }
-        });
-    }
-}
+        }
+
+        function saveJob(event, jobId) {
+            if (confirm('Are you sure you want to apply for this job?')) {
+                $.ajax({
+                    url: '{{ route('job.apply') }}',
+                    type: 'post',
+                    data: {
+                        id: jobId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
+            }
+
+        }
     </script>
 @endsection
