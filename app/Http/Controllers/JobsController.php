@@ -6,11 +6,13 @@ use App\Models\Job;
 use App\Models\User;
 use App\Models\JobType;
 use App\Models\Category;
+use App\Models\SavedJob;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
 use App\Mail\JobNotificationEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class JobsController extends Controller
 {
@@ -120,4 +122,43 @@ class JobsController extends Controller
             ]
         );
     }
-}
+
+    function saveJob(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'jobId' => 'required|integer|exists:jobs,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422); // 422 Unprocessable Entity
+        }
+
+        // 2. Check if user already saved this job
+        if (SavedJob::where([
+            'user_id' => Auth::id(),
+            'job_id' => $request->jobId
+        ])->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You already saved this job!'
+            ], 409);
+        }
+
+        // 3. Save the job
+        SavedJob::create([
+            'user_id' => Auth::id(),
+            'job_id' => $request->jobId
+        ]);
+
+        // 4. Success response
+        return response()->json([
+            'status' => true,
+            'message' => 'Job saved successfully!'
+        ]);
+    }
+    }
+

@@ -47,3 +47,77 @@ function index(Request $request)
     }
 
 =======>>>>
+
+
+
+   function saveJob(Request $request)
+    {
+        $request->validate([
+            'jobId' => 'required|integer|exists:jobs,id'
+        ]);
+        $job = Job::find($request->jobId)->exists();
+        if ($job == null) {
+            session()->flash('error', 'job not Found!');
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+
+
+        // now we will check user already saved job;
+        $jobExists =   SavedJob::where([
+            'user_id' => Auth::id(),
+            'job_id' => $request->jobId,
+        ])->exists();
+        if ($jobExists) {
+            session()->flash('error', 'You already applied to this Job!');
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+        SavedJob::create([
+            'user_id' => Auth::id(),
+            'job_id' => $request->jobId,
+        ]);
+        session()->flash('success', 'Job Saved Successfully!');
+        return response()->json([
+            'status' => true,
+            'message' => 'job Saved Successfully!',
+        ]);
+        // 1. Manual validation
+        $validator = Validator::make($request->all(), [
+            'jobId' => 'required|integer|exists:jobs,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422); // 422 Unprocessable Entity
+        }
+
+        // 2. Check if user already saved this job
+        if (SavedJob::where([
+            'user_id' => Auth::id(),
+            'job_id' => $request->jobId
+        ])->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You already saved this job!'
+            ], 409);
+        }
+
+        // 3. Save the job
+        SavedJob::create([
+            'user_id' => Auth::id(),
+            'job_id' => $request->jobId
+        ]);
+
+        // 4. Success response
+        return response()->json([
+            'status' => true,
+            'message' => 'Job saved successfully!'
+        ]);
+    }
+    }

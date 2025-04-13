@@ -14,6 +14,7 @@ Route::controller(JobsController::class)->group(function () {
     Route::get('jobs', 'index')->name('jobs');
     Route::get('job/detail/{id}', 'detail')->name('job.detail');
     Route::post('job/apply', 'apply')->name('job.apply');
+    Route::post('job/save', 'saveJob')->name('job.save');
 
 });
 

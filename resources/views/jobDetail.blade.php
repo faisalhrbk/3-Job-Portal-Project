@@ -148,9 +148,6 @@
 @section('customJs')
     <script>
         function applyJob(event, jobId) {
-            //  event.preventDefault();
-            //  $('button').prop('disabled', true);
-
             if (confirm('Are you sure you want to apply for this job?')) {
                 $.ajax({
                     url: '{{ route('job.apply') }}',
@@ -167,20 +164,17 @@
         }
 
         function saveJob(event, jobId) {
-            if (confirm('Are you sure you want to apply for this job?')) {
-                $.ajax({
-                    url: '{{ route('job.apply') }}',
-                    type: 'post',
-                    data: {
-                        id: jobId
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        window.location.reload();
-                    }
-                });
-            }
-
+            $.ajax({
+                url: "{{ route('job.save') }}",
+                type: 'post',
+                data: {
+                    id: jobId
+                },
+                dataType: 'json',
+                success: function(response) {
+                    window.location.reload();
+                }
+            });
         }
     </script>
 @endsection
