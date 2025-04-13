@@ -322,7 +322,9 @@ class AccountController extends Controller
 
 
     function savedJobs(){
-        
+        $savedJobs = JobApplication::where('user_id', Auth::user()->id)->with('job', 'job.jobType', 'job.applications')->paginate(10);
+
+        return view('account.job.savedJobs', compact('savedJobs')); 
     }
     function logout()
     {

@@ -25,7 +25,7 @@
                         <div class="card-body card-form">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h3 class="fs-4 mb-1"> Jobs Applied</h3>
+                                    <h3 class="fs-4 mb-1"> Saved Jobs</h3>
                                 </div>
 
                             </div>
