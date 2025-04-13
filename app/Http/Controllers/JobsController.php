@@ -25,27 +25,20 @@ class JobsController extends Controller
             'sort' => 'nullable|in:latest,oldest'
         ]);
 
-        $query = Job::Active()
-            ->with(['jobType', 'category'])
-            ->when($validated['keyword'] ?? null, function ($q, $keyword) {
-                $q->keywordSearch($keyword);
-            })
-            ->when($validated['location'] ?? null, function ($q, $location) {
-                $q->where('location', $location);
-            })
-            ->when($validated['category'] ?? null, function ($q, $category) {
-                $q->where('category_id', $category);
-            })
-            ->when(!empty($validated['jobType']), function ($q) use ($validated) {
-                $jobTypes = is_array($validated['jobType'])
-                    ? $validated['jobType']
-                    : explode(',', $validated['jobType']);
-                $q->whereIn('job_type_id', array_filter($jobTypes, 'is_numeric'));
-            })
-            ->when($validated['experience'] ?? null, function ($q, $exp) {
-                $q->where('experience', $exp);
-            })
-            ->orderBy('created_at', ($validated['sort'] ?? 'latest') == 'oldest' ? 'ASC' : 'DESC');
+        $query = Job::Active()->with(['jobType', 'category'])->when($validated['keyword'] ?? null, function ($q, $keyword) {
+            $q->keywordSearch($keyword);
+        })->when($validated['location'] ?? null, function ($q, $location) {
+            $q->where('location', $location);
+        })->when($validated['category'] ?? null, function ($q, $category) {
+            $q->where('category_id', $category);
+        })->when(!empty($validated['jobType']), function ($q) use ($validated) {
+            $jobTypes = is_array($validated['jobType'])
+                ? $validated['jobType']
+                : explode(',', $validated['jobType']);
+            $q->whereIn('job_type_id', array_filter($jobTypes, 'is_numeric'));
+        })->when($validated['experience'] ?? null, function ($q, $exp) {
+            $q->where('experience', $exp);
+        })->orderBy('created_at', ($validated['sort'] ?? 'latest') == 'oldest' ? 'ASC' : 'DESC');
 
         $jobs = $query->paginate(9)->onEachSide(1);
 
