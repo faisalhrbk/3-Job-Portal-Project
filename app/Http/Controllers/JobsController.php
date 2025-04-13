@@ -60,8 +60,13 @@ class JobsController extends Controller
 
     function detail($jobId)
     {
+
         $job = Job::Active($jobId)->with('jobType', 'category')->findorfail($jobId);
-        return view('jobDetail', compact('job'));
+        $jobExists =  (SavedJob::where([
+            'user_id' => Auth::id(),
+            'job_id' => $jobId,
+        ])->exists());
+        return view('jobDetail', compact('job', 'jobExists'));
     }
 
 
@@ -144,10 +149,10 @@ class JobsController extends Controller
             'job_id' => $request->id,
         ])->exists()) {
 
-           
-           
+
+
             return response()->json([
-                 session()->flash('error', 'You already Saved This Job!'),
+                session()->flash('error', 'You already Saved This Job!'),
                 'status' => false,
                 'message' => 'You already saved this job!'
             ]);
@@ -164,7 +169,6 @@ class JobsController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Job saved successfully!'
-        ],200);
+        ], 200);
     }
-    }
-
+}

@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('main')
+<style>
+    .saved_job{
+  background: #00D363;
+  color: #fff;
+}
+</style>
     <section class="section-4 bg-2">
         <div class="container pt-5">
             <div class="row">
@@ -38,8 +44,9 @@
                                     </div>
                                 </div>
                                 <div class="jobs_right">
-                                    <div class="apply_now">
-                                        <a class="heart_mark" href="#"> <i class="fa fa-heart-o"
+                                    <div style="" class="apply_now ">
+                                        <a class="heart_mark {{ $jobExists ? 'saved_job' : '' }} "
+                                            onclick="saveJob(event, {{ $job->id }})"> <i class="fa fa-heart-o"
                                                 aria-hidden="true"></i></a>
                                     </div>
                                 </div>
@@ -172,7 +179,7 @@
                 },
                 dataType: 'json',
                 success: function(response) {
-                        window.location.reload();
+                    window.location.reload();
                 }
 
             });
