@@ -15,7 +15,6 @@ Route::controller(JobsController::class)->group(function () {
     Route::get('job/detail/{id}', 'detail')->name('job.detail');
     Route::post('job/apply', 'apply')->name('job.apply');
     Route::post('job/save', 'saveJob')->name('job.save');
-
 });
 
 //todo Guest Routes
@@ -27,9 +26,7 @@ Route::middleware('redirectIfAuthenticated')->controller(AccountController::clas
 });
 
 //todo User Authenticated Routes
-Route::prefix('account')->middleware('authUser')
-    ->controller(AccountController::class)->name('account.')->group(function () {
-
+Route::prefix('account')->middleware('authUser')->controller(AccountController::class)->name('account.')->group(function () {
         Route::get('profile', 'profile')->name('profile');
         Route::post('update-profile', 'updateProfile')->name('update.profile');
         Route::get('logout', 'logout')->name('logout');
@@ -41,5 +38,6 @@ Route::prefix('account')->middleware('authUser')
         Route::post('update-job/{id}', 'updateJob')->name('updateJob');
         Route::post('delete-job', 'deleteJob')->name('deleteJob');
         Route::get('myJobApplications', 'myJobApplications')->name('myJobApplications');
-        Route::post('remove-job-applicaton', 'removeJob')->name('removeJob');
+        Route::post('remove-job-application', 'removeJob')->name('removeJob');
+        Route::get('saved-jobs', 'savedJobs')->name('savedJobs');
     });

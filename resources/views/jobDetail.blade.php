@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
 @section('main')
-<style>
-    .saved_job{
-  background: #00D363;
-  color: #fff;
-}
-</style>
     <section class="section-4 bg-2">
         <div class="container pt-5">
             <div class="row">

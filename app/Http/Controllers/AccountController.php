@@ -320,6 +320,10 @@ class AccountController extends Controller
         ]);
     }
 
+
+    function savedJobs(){
+        
+    }
     function logout()
     {
         Auth::logout();
