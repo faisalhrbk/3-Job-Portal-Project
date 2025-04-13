@@ -79,7 +79,7 @@
                             <div class="pt-3 text-end">
                                 @if (Auth::check())
                                     <button type="button" class="btn btn-secondary"
-                                        onclick="saveJob(event,{{ $job->id }})">Apply</button>
+                                        onclick="saveJob(event,{{ $job->id }})">Save</button>
                                 @else
                                     <a href="{{ route('account.login', $job->id) }}" class="btn btn-secondary disable">Login
                                         To
@@ -165,15 +165,16 @@
 
         function saveJob(event, jobId) {
             $.ajax({
-                url: "{{ route('job.save') }}",
+                url: '{{ route('job.save') }}',
                 type: 'post',
                 data: {
                     id: jobId
                 },
                 dataType: 'json',
                 success: function(response) {
-                    window.location.reload();
+                        window.location.reload();
                 }
+
             });
         }
     </script>

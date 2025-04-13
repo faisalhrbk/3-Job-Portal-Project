@@ -125,8 +125,9 @@ class JobsController extends Controller
 
     function saveJob(Request $request)
     {
+        // dd($request);
         $validator = Validator::make($request->all(), [
-            'jobId' => 'required|integer|exists:jobs,id'
+            'id' => 'required|integer|exists:jobs,id'
         ]);
 
         if ($validator->fails()) {
@@ -134,31 +135,36 @@ class JobsController extends Controller
                 'status' => false,
                 'message' => 'Validation failed',
                 'errors' => $validator->errors()
-            ], 422); // 422 Unprocessable Entity
+            ]);
         }
 
-        // 2. Check if user already saved this job
+        //todo Check if user already saved this job
         if (SavedJob::where([
             'user_id' => Auth::id(),
-            'job_id' => $request->jobId
+            'job_id' => $request->id,
         ])->exists()) {
+
+           
+           
             return response()->json([
+                 session()->flash('error', 'You already Saved This Job!'),
                 'status' => false,
                 'message' => 'You already saved this job!'
-            ], 409);
+            ]);
         }
 
-        // 3. Save the job
+        //todo Save the job
         SavedJob::create([
             'user_id' => Auth::id(),
-            'job_id' => $request->jobId
+            'job_id' => $request->id
         ]);
 
-        // 4. Success response
+        session()->flash('success', 'Job Saved Successfully!!');
+        //todo Success response
         return response()->json([
             'status' => true,
             'message' => 'Job saved successfully!'
-        ]);
+        ],200);
     }
     }
 
