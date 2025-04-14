@@ -213,3 +213,7 @@ console.log(Array.isArray({a: 1}));    // false (kyuki ye OBJECT hai)
 Agar value array hai, toh check karo ki wo empty na ho (length > 0).
 
 Agar array nahi hai, toh true chhod do.
+
+
+
+need a break today coz i have oht tommorow
